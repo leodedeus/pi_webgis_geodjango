@@ -1,0 +1,19 @@
+/* Estilos para a div do mapa */
+#map {
+    width: 100%;
+    height: 750px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px; /* Margem inferior para separar o mapa do rodapé */
+}
+
+/* Estilos para o rodapé */
+.rodape {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}
