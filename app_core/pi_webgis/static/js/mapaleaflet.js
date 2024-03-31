@@ -7,9 +7,15 @@ document.addEventListener('DOMContentLoaded', function () {
     map = L.map('map').setView(coordinicio, zoominicio);
 
     //Criando mapas base
-    var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{}).addTo(map);        
+    var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{});        
     var baserelief = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {});
     var googlesat = L.tileLayer ('https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}',{});
+    var osm_nolabel = L.tileLayer.wms('http://ows.mundialis.de/services/service?',{
+            layers: 'OSM-WMS-no-labels'
+        }).addTo(map);
+    var topowms = L.tileLayer.wms('http://ows.mundialis.de/services/service?',{
+        layers: 'TOPO-WMS'
+    });
         
     // Lê o arquivo GeoJSON gerado pela sua view e o adiciona ao mapa
     function criarCamadaEscolasGeojson(url) {
@@ -50,6 +56,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Erro ao carregar os dados do GeoJSON:', error);
             });
     }
+
+    //Camadas wms geoserver
+
+    var lotes = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_container/wms',{
+            layers: 'workspace_piwebgis_container:feature_polygon_lote_existente',
+            format: 'image/png',
+            transparent: true,
+            opacity: 0.7
+        })//.addTo(map)
     
     //Criação do controlador para visualização das camadas
     Promise.all([
@@ -58,15 +73,18 @@ document.addEventListener('DOMContentLoaded', function () {
     ]).then(function(camadasGeojson) {
             var escolasLayer = camadasGeojson[0];
             var rasLayer = camadasGeojson[1];
-    
+                
             var basemaps = {
-                'Base': streetmap,
-                'Satélite': googlesat,
+                'Mapa basico': osm_nolabel,
+                'Mapa OpenStreetMap': streetmap,
+                'Google Satélite': googlesat,
+                'Elevação': topowms,
                 'Topográfico': baserelief
             };
 
             var camadas = {
                 'Escolas públicas': escolasLayer,
+                'Lotes existentes': lotes,
                 'Regiões administrativas': rasLayer
             };
 

@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
     path('escolas/', ViewEscolaspublicas_geojson, name='url_escolas'),
-    path('ras/', ViewRegiaoAdministrativa_geojson, name='url_ras')
+    path('ras/', ViewRegiaoAdministrativa_geojson, name='url_ras'),
+    #path('lotes/', ViewLotesExistentes_geojson, name='url_lotes')
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.core.serializers import serialize
 #from django.contrib.gis.serializers import GeoJSONSerializer
 #from django.contrib.gis.geos import GEOSGeometry
-from pi_webgis.models import Escolaspublicas, Regiaoadministrativa
+from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente
 
 # Create your views here.
 
@@ -49,13 +49,22 @@ def ViewRegiaoAdministrativa_geojson(request):
     geojson_ras_data = json.loads(geojson_ras)
     geojson_ras_fixed = json.dumps(geojson_ras_data, indent=None)
     return HttpResponse(geojson_ras_fixed, content_type="application/json")
-    '''
+
+'''
+def ViewLotesExistentes_geojson(request):
+    lotes = Loteexistente.objects.all()
+    geojson_lotes = serialize("geojson", lotes, geometry_field="geom", fields=["ct_ciu", "lt_ra", "lt_enderec", "ac_area_ct", "ct_origem",])
+    geojson_lotes_data = json.loads(geojson_lotes)
+    geojson_lotes_fixed = json.dumps(geojson_lotes_data, indent=None)
+    return HttpResponse(geojson_lotes_fixed,content_type="application/json")
+ 
+
     return render(
         request,
         'teste.html',
         {'ras': ras}
     )
-    '''
+'''
     #geojson_data = serialize('geojson', regioes)
     #geojson_ras = json.loads(geojson_data)
     #return geojson_ras
