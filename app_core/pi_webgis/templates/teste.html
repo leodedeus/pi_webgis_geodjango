@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>Minhas RAs</title>
+    </head>
+    {% block content %}
+        <body>
+            {% for ra in ras %}
+                <h3>{{ ra.geom }}</h3>
+            {% endfor %}
+        </body>
+    {% endblock %}
+</html>

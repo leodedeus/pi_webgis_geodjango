@@ -18,10 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from pi_webgis.views import home
+from pi_webgis.views import ViewEscolaspublicas_geojson, ViewRegiaoAdministrativa_geojson
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home)
+    path('', home),
+    path('escolas/', ViewEscolaspublicas_geojson, name='url_escolas'),
+    path('ras/', ViewRegiaoAdministrativa_geojson, name='url_ras')
 ]
 
 urlpatterns += staticfiles_urlpatterns()
+

@@ -10,6 +10,11 @@ var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 var baserelief = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {});
 var googlesat = L.tileLayer ('https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}',{});
 
+/*
+// Inclua o arquivo JavaScript para visualização do GeoJSON
+document.write('<script src="{% static "ler_geojson_escolas.js" %}"></script>');
+*/
+
 //Criaçao das camadas do banco de dados
 var lotes = L.tileLayer.wms('http://192.168.0.48:8080/geoserver/pi_webgis/wms',{
             layers: 'pi_webgis:feature_polygon_lote_existente',
@@ -31,6 +36,7 @@ var ras = L.tileLayer.wms('http://192.168.0.48:8080/geoserver/pi_webgis/wms',{
             transparent: true,
             //opacity: 1.0
         });//.addTo(map)
+
 
 //Criação de variaveis para controlar a visualização das camadas
 var basemaps = {
