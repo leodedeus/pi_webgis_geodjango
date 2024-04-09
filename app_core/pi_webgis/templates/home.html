@@ -1,32 +1,37 @@
-{% load leaflet_tags %}
-{% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Leaflet</title>
-    {% leaflet_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <title>WebGIS</title>
+    <!-- Adicione seus estilos aqui, se necessário -->
+    <style>
+        /* Estilos para o botão */
+        .button-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>PI WEBGIS</h1>
-    <div id="map"></div>
+    <!-- Botão no canto superior direito -->
+    <div class="button-container">
+        <a href="{% url 'webgis' %}">
+            <button>Demo</button>
+        </a>
+    </div>
 
-    <script>
-        // Defina o URL para acessar a view url_escolas
-        var escolasUrl = "{% url 'url_escolas' %}";
-        var rasUrl = "{% url 'url_ras' %}";
-    </script>
+    <!-- Área destinada a receber outro HTML -->
+    <div id="conteudo">
+        {% block content %}
+        <!-- Você pode adicionar conteúdo padrão aqui se necessário -->
+        {% endblock %}
+    </div>
 
-    {% leaflet_js %}
-    <script src="{% static 'js/mapaleaflet.js' %}"></script>
-
-    <footer class="rodape">        
-        <p class="rodape__texto">Projeto Integrador IV - 1/2024 - WebGIS</p>
-    </footer>
+    <!-- Adicione seus scripts aqui, se necessário -->
 </body>
 </html>
+
 
 

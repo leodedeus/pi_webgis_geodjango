@@ -13,6 +13,9 @@ from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistent
 def home(request):
     return render(request, "home.html")
 
+def webgis(request):
+    return render(request, "webgis.html")
+
 '''
 def ViewRegiaoadministrativa_geojson(request):
     features_ra = []

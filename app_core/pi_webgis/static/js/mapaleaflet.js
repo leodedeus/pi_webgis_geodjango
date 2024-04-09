@@ -75,11 +75,11 @@ document.addEventListener('DOMContentLoaded', function () {
             var rasLayer = camadasGeojson[1];
                 
             var basemaps = {
-                'Mapa basico': osm_nolabel,
+                'Mapa Básico': osm_nolabel,
                 'Mapa OpenStreetMap': streetmap,
                 'Google Satélite': googlesat,
                 'Elevação': topowms,
-                'Topográfico': baserelief
+                'Relevo Sombreado': baserelief
             };
 
             var camadas = {
