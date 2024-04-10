@@ -1,19 +1,198 @@
-/* Estilos para a div do mapa */
-#map {
-    width: 100%;
-    height: 750px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px; /* Margem inferior para separar o mapa do rodapé */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
 }
 
-/* Estilos para o rodapé */
-.rodape {
-    background-color: #f2f2f2;
-    padding: 10px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    left: 0;
+body {
+    line-height: 1;
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(#041833,#04244F,#154580);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: 0; /* Adicionado unidade de medida */
+    padding: 0; /* Adicionado unidade de medida */
+    display: flex;
+    flex-direction: column; /* Organiza os elementos em coluna */
 }
+
+.pagina-inicial {
+    max-width: 100vw;
+    height: 8vh; /* Altura fixa para a página inicial */
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cabecalho {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.cabecalho__logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.cabecalho__texto {
+    color: #FFFFFF; /* Cor do texto */
+    font-size: 1.5rem; /* Tamanho do texto */
+    margin-left: 10px; /* Espaçamento entre o logo e o texto */
+}
+
+.cabecalho__logo {
+    width: 50px; /* Defina o tamanho desejado para o logo */
+}
+
+#buttonContainer {
+    margin-left: 60vw; /* Empurra a div para a direita o máximo possível */
+    display: flex;
+    flex-direction: row; /* Alterado para row para organizar horizontalmente */
+    align-items: center;
+    padding: 10px;
+}
+
+#buttonContainer button {
+    font-family: 'Space Grotesk', sans-serif;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 18px;
+    background-color: #7B78E5; /* Cor de fundo roxa */
+    padding: 10px 20px; /* Adicionado preenchimento aos botões */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Adicionado efeito de transição suave */
+}
+
+#buttonContainer button:hover {
+    background-color: #C98CF1; /* Alterado para um tom mais claro ao passar o mouse */
+}
+
+#btnIdentificarFeicao.ativo {
+    /* Adicione estilos para indicar que a identificação de feição está habilitada */
+    background-color: #2ab385;
+    color: white;
+}
+
+#map {
+    height: 85vh;  /* ou ajuste conforme necessário */
+    flex: 1;
+    border-radius: 10px;
+}
+
+.rodape {
+    /* height: 7vh; */
+    background-color: #04244F;
+    width: 100%;
+    padding: 1.5rem 3rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    color: #FFFFFF;
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.1); /* Adiciona sombra sutil na parte inferior */
+    border-top-left-radius: 10px; /* Adiciona borda arredondada no canto superior esquerdo */
+    border-top-right-radius: 10px; /* Adiciona borda arredondada no canto superior direito */
+}
+
+.rodape__texto {
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0; /* Certifique-se de que não há margens adicionadas */
+    padding: 0; /* Certifique-se de que não há preenchimento adicionado */
+}
+
+
+/* LANDPAGE */
+
+/* Estilos para a seção Sobre Nós */
+.sobre-nos {
+    padding: 50px 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+.sobre-nos h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Estilos para a seção O que é GIS */
+.o-que-e-gis {
+    padding: 50px 20px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.o-que-e-gis h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.o-que-e-gis img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+/* Estilos para a seção Texto Aprofundado */
+.texto-aprofundado {
+    padding: 50px 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+.texto-aprofundado h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.texto-aprofundado p {
+    margin-bottom: 20px;
+}
+
+.texto-aprofundado img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+/* Estilos para o footer */
+.rodape {
+    background-color: #04244F;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+.rodape__texto {
+    font-size: 14px;
+}
+

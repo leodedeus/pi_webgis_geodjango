@@ -22,7 +22,7 @@ from pi_webgis.views import ViewEscolaspublicas_geojson, ViewRegiaoAdministrativ
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', home, name=''),
     path('webgis/',webgis, name='webgis'),
     path('escolas/', ViewEscolaspublicas_geojson, name='url_escolas'),
     path('ras/', ViewRegiaoAdministrativa_geojson, name='url_ras'),
