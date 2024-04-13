@@ -1,5 +1,6 @@
 #import logging
 import json
+import requests
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse
@@ -74,3 +75,44 @@ def ViewLotesExistentes_geojson(request):
     #serializer = GeoJSONSerializer()
     #geojson = serializer.serialize(regioes, geometry_field='geom', fields=('ra_cira','ra_nome',))
     #return JsonResponse(geojson, safe=False)
+
+#esta view faz uma solicitação get para a api nominatim passando um endereço, e retorna um arquivo json como resposta
+def busca_endereco(request):
+    # Obtendo o endereço da query string da solicitação
+    address = request.GET.get('address')
+    
+    # Verificando se foi fornecido um endereço
+    if not address:
+        return JsonResponse({'error': 'Endereço não fornecido na solicitação'}, status=400)
+
+    # Construindo a URL para a API Nominatim com o endereço fornecido
+    url = f"https://nominatim.openstreetmap.org/search?q={address}&format=json"
+    
+    # Fazendo uma requisição GET para a API Nominatim
+    response = requests.get(url)
+    
+    # Verificando se a resposta foi bem-sucedida
+    if response.status_code == 200:
+        # Convertendo a resposta para JSON
+        data = response.json()
+        
+        # Verificando se os dados estão presentes na resposta
+        if data:
+            # Obtendo as coordenadas e o nome do local a partir dos dados retornados
+            location = data[0]
+            latitude = float(location['lat'])
+            longitude = float(location['lon'])
+            endereco = location['name']
+            enderecoCompleto = location['display_name']
+            tipoLocal = location['type']
+            boundingBox = location['boundingbox']
+            
+            # Retornando as coordenadas e o nome do local
+            return JsonResponse({'latitude': latitude, 'longitude': longitude, 'endereco': endereco, 'enderecoCompleto': enderecoCompleto, 'tipoLocal': tipoLocal, 'boundingBox': boundingBox})
+        else:
+            # Se os dados estiverem vazios, retornar uma mensagem indicando que o endereço não foi localizado
+            return JsonResponse({'error': 'Endereço não localizado'}, status=404)
+    else:
+        # Se a resposta não for bem-sucedida, retornar uma mensagem de erro na busca
+        return JsonResponse({'error': 'Erro na busca'}, status=response.status_code)
+    #para testar esse view, faça uma requisição no navegador para o endereço: http://localhost:8000/busca_endereco/?address=ceub taguatinga

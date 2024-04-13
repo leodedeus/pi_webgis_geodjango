@@ -7,17 +7,61 @@ document.addEventListener('DOMContentLoaded', function () {
     map = L.map('map').setView(coordinicio, zoominicio);
 
     //Criando mapas base
-    var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{});        
+    var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{}).addTo(map);        
     var baserelief = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {});
     var googlesat = L.tileLayer ('https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}',{});
     var osm_nolabel = L.tileLayer.wms('http://ows.mundialis.de/services/service?',{
             layers: 'OSM-WMS-no-labels'
-        }).addTo(map);
+        });
     var topowms = L.tileLayer.wms('http://ows.mundialis.de/services/service?',{
         layers: 'TOPO-WMS'
     });
-        
-    // Lê o arquivo GeoJSON gerado pela sua view e o adiciona ao mapa
+    
+    function adicionarMarcadorEndereco(latitude, longitude, endereco, tipoLocal) {
+        var popupContent = '<b>Endereço:</b> ' + endereco + '<br>';
+        if (tipoLocal) {
+            popupContent += '<b>Tipo:</b> ' + tipoLocal + '<br>';
+        }
+        var marcador = L.marker([latitude, longitude]).addTo(map);
+        marcador.bindPopup(popupContent).openPopup();
+    }
+
+    /*
+    // Função para fazer a busca de endereço e adicionar marcador no mapa
+    function buscarEndereco(endereco) {
+        fetch('/busca_endereco/?address=' + encodeURIComponent(endereco))
+            .then(response => response.json())
+            .then(data => {
+                if (data.latitude && data.longitude) {
+                    adicionarMarcadorEndereco(data.latitude, data.longitude, data.endereco, data.tipoLocal);
+                    map.setView([data.latitude, data.longitude], 15);
+                } else {
+                    console.error('Endereço não encontrado:', data.error);
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+    }
+    */
+
+    function buscarEndereco(endereco) {
+        fetch('/busca_endereco/?address=' + encodeURIComponent(endereco))
+            .then(response => response.json())
+            .then(data => {
+                if (data.latitude && data.longitude) {
+                    adicionarMarcadorEndereco(data.latitude, data.longitude, data.endereco, data.tipoLocal);
+                    
+                    // Define o zoom do mapa para um nível específico
+                    map.setZoom(17);
+    
+                    // Define o centro do mapa para as coordenadas do marcador
+                    map.setView([data.latitude, data.longitude]);
+                } else {
+                    console.error('Endereço não encontrado:', data.error);
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+    }
+    // Função para criar camada de escolas a partir de GeoJSON
     function criarCamadaEscolasGeojson(url) {
         return fetch(url)
             .then(response => response.json())
@@ -39,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Função para criar camada de regiões administrativas a partir de GeoJSON
     function criarCamadaRasGeojson(url) {
         return fetch(url)
             .then(response => response.json())
@@ -90,4 +135,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             L.control.layers(basemaps, camadas).addTo(map);
         });
+    
+    // Adiciona um ouvinte de eventos para o formulário de busca de endereco
+    document.getElementById('buscaendereco-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var address = document.getElementById('address-input').value;
+        buscarEndereco(address);
+    });
+    
 });

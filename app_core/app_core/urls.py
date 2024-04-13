@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from pi_webgis.views import home, webgis
-from pi_webgis.views import ViewEscolaspublicas_geojson, ViewRegiaoAdministrativa_geojson
+from pi_webgis.views import ViewEscolaspublicas_geojson, ViewRegiaoAdministrativa_geojson, busca_endereco
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +26,8 @@ urlpatterns = [
     path('webgis/',webgis, name='webgis'),
     path('escolas/', ViewEscolaspublicas_geojson, name='url_escolas'),
     path('ras/', ViewRegiaoAdministrativa_geojson, name='url_ras'),
+    path('busca_endereco/', busca_endereco, name='busca_endereco'),
+    #path('search_endereco/', search_endereco, name='search_endereco'),
     #path('lotes/', ViewLotesExistentes_geojson, name='url_lotes')
 ]
 
