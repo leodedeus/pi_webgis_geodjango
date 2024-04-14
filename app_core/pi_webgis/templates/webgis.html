@@ -18,21 +18,23 @@
                     <img class="cabecalho__logo" src="{% static '/assets/icones/location.png' %}" alt="Logo do WebGIS" />
                     <span class="cabecalho__texto">LocCerta</span>
                 </a>
+            </div>
+            <div class="cabecalho__acoes-container">
                 <div id="buttonContainer">
                     <button id="btnAddEscola">Adicionar Escola</button>
                     <button id="btnPesquisarEscola">Pesquisar Escola</button>
                     <button id="btnIdentificarFeicao">Identificar Objeto</button>
-                </div> 
+                </div>
+                <div id="search-container">
+                    <form id="buscaendereco-form">
+                        <input type="text" id="address-input" placeholder="Digite o endereço">
+                        <button type="submit">Buscar</button>
+                    </form>
+                </div>
             </div>                       
         </header>
     </div>
-    <h1>PI WEBGIS</h1>
-    <div id="search-container">
-        <form id="buscaendereco-form">
-            <input type="text" id="address-input" placeholder="Digite o endereço">
-            <button type="submit">Buscar</button>
-        </form>
-    </div> 
+    
     <div id="map"></div>
 
     <script>
