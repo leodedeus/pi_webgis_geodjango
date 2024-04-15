@@ -1,19 +1,19 @@
-//Cria o mapa leaflet
 var map;
-var coordinicio = [-15.761476545982422, -47.73670621074695];
-var zoominicio = 10;
+
+//Cria o mapa leaflet
+var coordinicio = [-15.8088136,-47.95301];
+var zoominicio = 12;
 map = L.map('map').setView(coordinicio, zoominicio);
 
 //Criando mapas base
 var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{}).addTo(map);        
 var baserelief = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {});
 var googlesat = L.tileLayer ('https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}',{});
-var osm_nolabel = L.tileLayer.wms('http://ows.mundialis.de/services/service?',{
-        layers: 'OSM-WMS-no-labels'
-    });
-var topowms = L.tileLayer.wms('http://ows.mundialis.de/services/service?',{
-    layers: 'TOPO-WMS'
-});
+
+/*
+// Inclua o arquivo JavaScript para visualização do GeoJSON
+document.write('<script src="{% static "ler_geojson_escolas.js" %}"></script>');
+*/
 
 //Criaçao das camadas do banco de dados
 var lotes = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_container/wms',{
@@ -40,12 +40,10 @@ var ras = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_co
 
 //Criação de variaveis para controlar a visualização das camadas
 var basemaps = {
-    'Mapa Básico': osm_nolabel,
-    'Mapa OpenStreetMap': streetmap,
-    'Google Satélite': googlesat,
-    'Elevação': topowms,
-    'Relevo Sombreado': baserelief
-};
+    'Base': streetmap,
+    'Satélite': googlesat,
+    'Topográfico': baserelief
+    }
 
 var camadas = {
     'Escolas': escolas,

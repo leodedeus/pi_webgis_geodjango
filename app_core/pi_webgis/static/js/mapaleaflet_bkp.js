@@ -1,3 +1,4 @@
+/*
 document.addEventListener('DOMContentLoaded', function () {
     
     //Cria o mapa leaflet
@@ -146,3 +147,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     
 });
+*/
