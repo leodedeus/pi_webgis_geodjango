@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.core.serializers import serialize
+from django.contrib.gis.geos import Point
+from django.contrib.gis.db.models.functions import Transform
 #from django.contrib.gis.serializers import GeoJSONSerializer
 #from django.contrib.gis.geos import GEOSGeometry
 from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente
@@ -116,3 +118,42 @@ def busca_endereco(request):
         # Se a resposta não for bem-sucedida, retornar uma mensagem de erro na busca
         return JsonResponse({'error': 'Erro na busca'}, status=response.status_code)
     #para testar esse view, faça uma requisição no navegador para o endereço: http://localhost:8000/busca_endereco/?address=ceub taguatinga
+
+def identificar_feicao(request):
+    if request.method == 'POST':
+        print('entrou no if request.method')
+        print(request.POST)
+        lat = float(request.POST.get('lat'))
+        lng = float(request.POST.get('lng'))
+        nome_camada = request.POST.get('nome_camada')
+
+        # Converta as coordenadas do clique para o sistema de coordenadas da camada no banco de dados
+        ponto_clicado = Point(lng, lat, srid=4326)  # srid=4326 é o sistema de coordenadas lat/long
+
+        if nome_camada == 'Regiões Administrativas':
+
+            # Realize a consulta espacial para encontrar a região administrativa que intersecta com o ponto clicado
+            try:
+                regiao_administrativa = Regiaoadministrativa.objects.filter(geom__intersects=ponto_clicado.transform(31983)).first()
+            
+                # Verifique se encontrou uma região administrativa
+                if regiao_administrativa:
+                    # Converta a geometria para GeoJSON
+                    geojson = regiao_administrativa.geom.geojson
+
+                    # Crie um dicionário com os atributos da região administrativa
+                    atributos = {
+                        'número': regiao_administrativa.ra_cira,
+                        'nome': regiao_administrativa.ra_nome,
+                        'código': regiao_administrativa.ra_codigo,
+                        # Adicione mais atributos conforme necessário
+                    }
+
+                    # Retorne um JsonResponse com o GeoJSON e os atributos
+                    return JsonResponse({'geojson': geojson, 'atributos': atributos})
+                else:
+                    return JsonResponse({'error': 'Nenhuma região administrativa encontrada para as coordenadas fornecidas'})
+            except Exception as e:
+                return JsonResponse({'error': str(e)})
+    else:
+        return JsonResponse({'error': 'Método não permitido'})
