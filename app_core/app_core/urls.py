@@ -23,11 +23,11 @@ from pi_webgis.views import ViewEscolaspublicas_geojson, ViewRegiaoAdministrativ
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name=''),
-    path('webgis/',webgis, name='webgis'),
+    path('webgis/',webgis, name='url_webgis'),
     path('escolas/', ViewEscolaspublicas_geojson, name='url_escolas'),
     path('ras/', ViewRegiaoAdministrativa_geojson, name='url_ras'),
-    path('busca_endereco/', busca_endereco, name='busca_endereco'),
-    path('identificar_feicao/', identificar_feicao, name='identificar_feicao'),
+    path('busca_endereco/', busca_endereco, name='url_busca_endereco'),
+    path('identificar_feicao/', identificar_feicao, name='url_identificar_feicao'),
     #path('search_endereco/', search_endereco, name='search_endereco'),
     #path('lotes/', ViewLotesExistentes_geojson, name='url_lotes')
 ]

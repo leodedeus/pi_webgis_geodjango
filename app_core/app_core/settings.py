@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import corsheaders
+#import corsheaders
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -52,12 +52,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    #'corsheaders.middleware.CorsMiddleware',
 ]
-
-# Configure as opções do CORS
-CORS_ALLOW_ALL_ORIGINS = True 
-
+'''
+# Adicione os hosts permitidos
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Adicione outros hosts conforme necessário
+    "http://127.0.0.1:3000",
+]
+'''
 ROOT_URLCONF = 'app_core.urls'
 
 TEMPLATES = [
