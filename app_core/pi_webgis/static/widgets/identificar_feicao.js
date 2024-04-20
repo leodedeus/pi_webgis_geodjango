@@ -4,8 +4,33 @@ function getCSRFToken() {
     return cookieValue ? cookieValue[1] : null;
 }
 
+// Função para adicionar um popup à feição geométrica
+function addPopupToFeature(feature) {
+    var properties = feature.properties;
+    var popupContent = "<b>Atributos:</b><br>";
+    for (var key in properties) {
+        popupContent += key + ": " + properties[key] + "<br>";
+    }
+    var layer = L.geoJSON(feature);
+    layer.bindPopup(popupContent).on('popupclose', function() {
+        map.removeLayer(layer);
+    });
+    layer.addTo(map).openPopup(); // Abre o popup imediatamente após adicionar o layer ao mapa
+}
+
+// Função para limpar as camadas adicionadas pelo usuário
+function limparCamadas() {
+    map.eachLayer(function (layer) {
+        if (!layer._url) { // Remove apenas as camadas não relacionadas a um URL (ou seja, não é uma camada de azulejo)
+            map.removeLayer(layer);
+        }
+    });
+}
+
 // Adicionar um ouvinte de eventos para o clique no mapa
 map.on('click', function(e) {
+    // Limpa as camadas existentes antes de adicionar uma nova
+    limparCamadas();
     // Verificar se alguma camada está habilitada
     for (var layerName in camadas) {
         if (map.hasLayer(camadas[layerName])) {
@@ -50,8 +75,30 @@ map.on('click', function(e) {
             })
             .then(data => {
                 console.log('Resposta do servidor:', data);
-                // Lidar com a resposta do servidor conforme necessário
+                console.log('Ainda não entrou no try');
+            
+                try {
+                    console.log('Tentando criar a feição geométrica...');
+            
+                    // Verificar se data.features está definido e não é vazio
+                    if (data.features && data.features.length > 0) {
+                        var features = data.features;
+            
+                        console.log('GeoJSON:', features);
+            
+                        // Adicionar cada feição ao mapa como uma camada GeoJSON
+                        features.forEach(feature => {
+                            // Adicionar um popup à feição geométrica com os atributos
+                            addPopupToFeature(feature);
+                        });
+                    } else {
+                        throw new Error('GeoJSON retornado está vazio ou indefinido.');
+                    }
+                } catch (error) {
+                    console.error('Erro ao criar a feição geométrica:', error);
+                }
             })
+            
             .catch(error => {
                 console.error('Erro na solicitação AJAX nivel 2:', error);
             });
@@ -61,46 +108,3 @@ map.on('click', function(e) {
         }
     }
 });
-
-/*
-// Função auxiliar para obter o valor de um cookie pelo nome
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            // Verificar se o cookie começa com o nome especificado
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                // Retornar o valor do cookie
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-*/
-/*
-// Função para enviar as coordenadas e o nome da camada para o servidor
-function enviarCoordenadasENomeDaCamada(coordenadas, nomeCamada) {
-    // Aqui você pode enviar as coordenadas e o nome da camada para o servidor
-    // Usando AJAX, por exemplo, para processamento adicional ou identificação de feições
-    $.ajax({
-        url: '/identificar_camada/',
-        type: 'POST',
-        data: {
-            'lat': coordenadas.lat,
-            'lng': coordenadas.lng,
-            'nome_camada': nomeCamada
-        },
-        success: function(response) {
-            console.log('Resposta do servidor:', response);
-            // Lidar com a resposta do servidor conforme necessário
-        },
-        error: function(error) {
-            console.error('Erro na solicitação AJAX:', error);
-        }
-    });
-}
-*/

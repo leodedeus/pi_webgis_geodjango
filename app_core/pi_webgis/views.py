@@ -122,6 +122,68 @@ def busca_endereco(request):
 def identificar_feicao(request):
     if request.method == 'POST':
         print('entrou no if request.method')
+
+        # Decodifique os dados JSON do corpo da solicitação
+        data = json.loads(request.body) #este item foi a alteração que resolver para a view receber os dados do front
+        print(data)
+
+        lat = float(data.get('lat'))
+        lng = float(data.get('lng'))
+        nome_camada = data.get('nome_camada')
+        print(lat, lng, nome_camada)
+
+        # Converta as coordenadas do clique para o sistema de coordenadas da camada no banco de dados
+        ponto_clicado = Point(lng, lat, srid=4326)  # srid=4326 é o sistema de coordenadas lat/long
+        # Verificar se o ponto foi criado corretamente
+        if ponto_clicado:
+        # Converter as coordenadas para o sistema de coordenadas da camada no banco de dados
+            ponto_clicado.transform(31983)
+            print(ponto_clicado)
+        else:
+            return JsonResponse({'error': 'Falha ao criar o ponto clicado'})
+
+        if nome_camada == 'Regiões Administrativas':
+            print('camada consultada no banco: ', nome_camada)
+
+            # Realize a consulta espacial para encontrar a região administrativa que intersecta com o ponto clicado
+            try:
+                regiao_administrativa = Regiaoadministrativa.objects.filter(geom__intersects=ponto_clicado).first()
+                print('resultado consulta no banco: ', regiao_administrativa)
+
+                # Verifique se encontrou uma região administrativa
+                if regiao_administrativa:
+                    geojson_identify_ra = serialize("geojson", [regiao_administrativa], geometry_field="geom", fields=["ra_cira", "ra_nome", "ra_codigo"])
+                    print(geojson_identify_ra)
+                    # Retorne um HttpResponse com o GeoJSON da feição
+                    return HttpResponse(geojson_identify_ra, content_type="application/json")
+                    '''
+                    geojson_feature = {
+                        "type": "Feature",
+                        "geometry": json.loads(regiao_administrativa.geom.transform(4326, clone=True).geojson),
+                        "properties": {
+                            'número': regiao_administrativa.ra_cira,
+                            'nome': regiao_administrativa.ra_nome,
+                            'código': regiao_administrativa.ra_codigo
+                            # Adicione mais atributos conforme necessário
+                        }
+                    }
+                    print(geojson_feature)
+                    
+                    # Retorne um JsonResponse com o GeoJSON da feição
+                    return JsonResponse(geojson_feature, safe=False)
+                    '''
+                    
+                else:
+                    return JsonResponse({'error': 'Nenhuma região administrativa encontrada para as coordenadas fornecidas'})
+            except Exception as e:
+                return JsonResponse({'error': str(e)})
+    else:
+        return JsonResponse({'error': 'Método não permitido'})
+
+'''
+def identificar_feicao(request):
+    if request.method == 'POST':
+        print('entrou no if request.method')
         print(request.POST)
         lat = float(request.POST.get('lat'))
         lng = float(request.POST.get('lng'))
@@ -157,3 +219,4 @@ def identificar_feicao(request):
                 return JsonResponse({'error': str(e)})
     else:
         return JsonResponse({'error': 'Método não permitido'})
+'''
