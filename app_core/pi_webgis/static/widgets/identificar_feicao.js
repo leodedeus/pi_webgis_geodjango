@@ -29,82 +29,97 @@ function limparCamadas() {
 
 // Adicionar um ouvinte de eventos para o clique no mapa
 map.on('click', function(e) {
-    // Limpa as camadas existentes antes de adicionar uma nova
+    // Limpar as camadas existentes antes de adicionar uma nova
     limparCamadas();
-    // Verificar se alguma camada está habilitada
+
+    // Array para armazenar as informações das camadas ativadas
+    var camadasAtivadas = [];
+
+    // Verificar todas as camadas e capturar informações das camadas ativadas
     for (var layerName in camadas) {
         if (map.hasLayer(camadas[layerName])) {
-            // Se uma camada estiver habilitada, recupere as coordenadas do clique e o nome da camada
+            //var layer = camadas[layerName];
+
+            // Recuperar as coordenadas do clique e o nome da camada
             var coordenadas = e.latlng;
             var nomeCamada = layerName;
 
-            // Faça algo com as coordenadas e o nome da camada
-            console.log('Coordenadas do clique:', coordenadas);
-            console.log('Camada habilitada:', nomeCamada);
-
-            // Obter o token CSRF do cookie
-            var csrfToken = getCSRFToken();
-            console.log('Token CSRF:', csrfToken);
-
-            // Enviar os dados para a view Django usando fetch
-            console.log('Dados enviados na solicitação:', JSON.stringify({
-                lat: coordenadas.lat,
-                lng: coordenadas.lng,
-                nome_camada: nomeCamada
-            }));
-            
-            
-            fetch('/identificar_feicao/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken // Inclua o token CSRF aqui
-                },
-
-                body: JSON.stringify({
-                    lat: coordenadas.lat,
-                    lng: coordenadas.lng,
-                    nome_camada: nomeCamada
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro na solicitação AJAX nivel 1');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Resposta do servidor:', data);
-                console.log('Ainda não entrou no try');
-            
-                try {
-                    console.log('Tentando criar a feição geométrica...');
-            
-                    // Verificar se data.features está definido e não é vazio
-                    if (data.features && data.features.length > 0) {
-                        var features = data.features;
-            
-                        console.log('GeoJSON:', features);
-            
-                        // Adicionar cada feição ao mapa como uma camada GeoJSON
-                        features.forEach(feature => {
-                            // Adicionar um popup à feição geométrica com os atributos
-                            addPopupToFeature(feature);
-                        });
-                    } else {
-                        throw new Error('GeoJSON retornado está vazio ou indefinido.');
-                    }
-                } catch (error) {
-                    console.error('Erro ao criar a feição geométrica:', error);
-                }
-            })
-            
-            .catch(error => {
-                console.error('Erro na solicitação AJAX nivel 2:', error);
+            // Adicionar informações da camada ativada ao array
+            camadasAtivadas.push({
+                nomeCamada: nomeCamada
             });
-
-            // Se já encontrou uma camada habilitada, saia do loop
-            break;
         }
     }
+
+    // Faça algo com as coordenadas, o nome e o tipo de geometria da camada
+    console.log('Coordenadas do clique:', coordenadas);
+    console.log('Camada habilitada:', camadasAtivadas);
+
+    // Se não houver camadas ativadas, saia da função
+    if (camadasAtivadas.length === 0) {
+        console.log('Nenhuma camada ativada.');
+        return;
+    }
+
+    // Obter o token CSRF do cookie
+    var csrfToken = getCSRFToken();
+    console.log('Token CSRF:', csrfToken);
+
+    // Enviar os dados para a view Django usando fetch
+    console.log('Dados enviados na solicitação:', JSON.stringify({
+        lat: coordenadas.lat,
+        lng: coordenadas.lng,
+        camadasAtivadas: camadasAtivadas
+    }));
+            
+            
+    fetch('/identificar_feicao/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken // Inclua o token CSRF aqui
+        },
+
+        body: JSON.stringify({
+            lat: coordenadas.lat,
+            lng: coordenadas.lng,
+            nome_camada: nomeCamada
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na solicitação AJAX nivel 1');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Resposta do servidor:', data);
+        console.log('Ainda não entrou no try');
+            
+        try {
+            console.log('Tentando criar a feição geométrica...');
+            
+            // Verificar se data.features está definido e não é vazio
+            if (data.features && data.features.length > 0) {
+                var features = data.features;
+            
+                console.log('GeoJSON:', features);
+            
+                // Adicionar cada feição ao mapa como uma camada GeoJSON
+                features.forEach(feature => {
+                    // Adicionar um popup à feição geométrica com os atributos
+                    addPopupToFeature(feature);
+                });
+            } else {
+                throw new Error('GeoJSON retornado está vazio ou indefinido.');
+            }
+        } catch (error) {
+            console.error('Erro ao criar a feição geométrica:', error);
+        }
+    })
+            
+    .catch(error => {
+        console.error('Erro na solicitação AJAX nivel 2:', error);
+    });
+
 });
