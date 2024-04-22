@@ -6,15 +6,15 @@
     font: inherit;
     vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
+
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
 
 body {
-    line-height: 1;
-    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.6;
+    font-family: "Montserrat",'Space Grotesk', sans-serif;
     min-height: 100vh;
     background: linear-gradient(#041833,#04244F,#154580);
     background-repeat: no-repeat;
@@ -26,14 +26,7 @@ body {
     flex-direction: column; /* Organiza os elementos em coluna */
 }
 
-.pagina-inicial {
-    max-width: 100vw;
-    height: 8vh; /* Altura fixa para a página inicial */
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+/*HEADER*/
 
 .cabecalho {
     align-items: center;
@@ -48,16 +41,25 @@ body {
 }
 
 .cabecalho__texto {
-    color: #FFFFFF; /* Cor do texto */
-    font-size: 1.5rem; /* Tamanho do texto */
+    color: #FFFFFF; 
+    font-size: 1.5rem; 
     margin-left: 10px; /* Espaçamento entre o logo e o texto */
 }
 
 .cabecalho__logo {
-    width: 50px; /* Defina o tamanho desejado para o logo */
+    width: 25px; 
 }
 
-/* Search Form */
+/* BANNER */
+
+.banner {
+    width: 100%; /* Para preencher a tela horizontalmente */
+    height: auto; /* Para manter a proporção da imagem */
+    max-height: 200px; /* Altura máxima desejada */
+}
+
+/* FORMULARIO DE BUSCA (WEBGIS)*/
+
 #search-container {
     margin-right: 20px; /* Ajuste de margem para separação visual */
 }
@@ -96,14 +98,9 @@ body {
 }
 
 
-.banner {
-    width: 100%; /* Para preencher a tela horizontalmente */
-    height: auto; /* Para manter a proporção da imagem */
-    max-height: 200px; /* Altura máxima desejada */
-}
 
 #buttonContainer {
-    margin-left: 85vw; /* Empurra a div para a direita o máximo possível */
+    margin-left: 80vw; /* Empurra a div para a direita o máximo possível */
     display: flex;
     flex-direction: row; /* Alterado para row para organizar horizontalmente */
     align-items: right;
@@ -168,40 +165,18 @@ body {
     color: white;
 }
 
+/* MAPA */ 
 #map {
     height: 85vh;  /* ou ajuste conforme necessário */
     flex: 1;
     border-radius: 10px;
 }
 
-.rodape {
-    /* height: 7vh; */
-    background-color: #04244F;
-    width: 100%;
-    padding: 1.5rem 3rem;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    color: #FFFFFF;
-    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.1); /* Adiciona sombra sutil na parte inferior */
-    border-top-left-radius: 10px; /* Adiciona borda arredondada no canto superior esquerdo */
-    border-top-right-radius: 10px; /* Adiciona borda arredondada no canto superior direito */
-}
-
-.rodape__texto {
-    font-size: 1.1rem;
-    text-align: center;
-    margin: 0; /* Certifique-se de que não há margens adicionadas */
-    padding: 0; /* Certifique-se de que não há preenchimento adicionado */
-}
-
-
 /* LANDPAGE */
 
 /* Estilos para a seção Sobre Nós */
 .servicos {
-    padding: 50px 20px;
+    padding: 50px 10vw;
     background-color: #04244F; /* Cor azul escura */
     font-size: 20px;
     text-align: center;
@@ -219,8 +194,18 @@ body {
     text-align: left;
 }
 
+.servicos_1 h2{
+    text-align: left;
+    color: #04244F;
+}
+
 .servicos_2{
     text-align: right;
+}
+
+.servicos_2 h2{
+    text-align: right;
+    color: #04244F;
 }
 
 .servicos section {
@@ -251,7 +236,7 @@ body {
 
 /* Estilos para a seção O que é GIS */
 .o-que-e-gis {
-    padding: 10px 10px;
+    padding: 10px 10vw;
     background-color: #302d2d;
     font-size: 20px;
     text-align: left;
@@ -278,7 +263,7 @@ body {
 
 /* Estilos para a seção Texto Aprofundado */
 .sobre-nos {
-    padding: 10px 10px;
+    padding: 10px 10vw;
     background-color: black;
     font-size: 20px;
     text-align: left;
@@ -304,7 +289,8 @@ body {
     order: -1;
 }
 
-/* Estilos para o footer */
+/* FOOTER */
+
 .rodape {
     background-color: #04244F;
     color: #ffffff;
@@ -315,3 +301,10 @@ body {
 .rodape__texto {
     font-size: 20px;
 }
+
+@media screen and (max-width: 768px) {
+    /* Aplique ajustes de estilo para telas menores que 768px */
+    .cabecalho {
+        flex-direction: column;
+        align-items: center;
+    }}

@@ -1,0 +1,51 @@
+{% load leaflet_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocCerta</title>
+    {% leaflet_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12+Charted&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="cabecalho">
+        <div class="cabecalho__logo-container">
+            <a href="{% url '' %}" class="cabecalho__link">
+                <img class="cabecalho__logo" src="{% static '/assets/icones/location.png' %}" alt="Logo do WebGIS" />
+                <span class="cabecalho__texto">LocCerta</span>
+            </a>
+        </div>
+        <div id="buttonContainer-mapa">
+            <button id="btnAddEscola">Adicionar Escola</button>
+            <button id="btnPesquisarEscola">Pesquisar Escola</button>
+            <button id="btnIdentificarFeicao">Identificar Objeto</button>
+        </div>
+        <div id="search-container">
+            <form id="buscaendereco-form">
+                <input type="text" id="address-input" placeholder="Digite o endereço">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+                                
+    </header>
+    
+    <div id="map"></div>
+
+    {% leaflet_js %}
+    <script src="{% static 'js/mapabase.js' %}"></script>
+    <script src="{% static 'widgets/identificar_feicao.js' %}"></script>
+    <script src="{% static 'widgets/busca_endereco_local.js' %}"></script>
+
+    <footer class="rodape">        
+        <p class="rodape__texto">Projeto Integrador IV - 1/2024 - WebGIS</p>
+    </footer>
+    
+</body>
+</html>

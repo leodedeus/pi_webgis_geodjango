@@ -1,0 +1,52 @@
+{% load leaflet_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocCerta</title>
+    {% leaflet_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="cabecalho__logo-container">
+            <a href="{% url '' %}" class="cabecalho__link">
+                <img class="cabecalho__logo" src="{% static '/assets/icones/location.png' %}" alt="Logo do WebGIS" />
+                <span class="cabecalho__texto">LocCerta</span>
+            </a>
+            <div id="buttonContainer">
+                <a href="{% url 'webgis' %}">
+                    <button id="btnDEMO">DEMO</button>
+                </a>
+            </div> 
+        </div>                       
+    </header>
+
+    <section class="sobre-nos">
+        <h2>Sobre Nós</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida lectus eget neque malesuada, ac blandit eros porta. Integer nec hendrerit eros. Duis consectetur justo id nisl dignissim malesuada.</p>
+        <p>Morbi sed lacus consequat, venenatis enim eu, vestibulum nunc. Nunc tempus magna a urna commodo, a sollicitudin elit euismod. Nulla facilisi. Mauris non ipsum nec justo aliquet ultricies.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed pretium justo sed ipsum vulputate vehicula. Vestibulum ultricies vehicula magna sit amet tempus.</p>
+    </section>
+
+    <section class="o-que-e-gis">
+        <h2>O que é GIS?</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida lectus eget neque malesuada, ac blandit eros porta. Integer nec hendrerit eros. Duis consectetur justo id nisl dignissim malesuada.</p>
+        <img src="caminho/para/imagem" alt="Imagem GIS">
+    </section>
+
+    <section class="texto-aprofundado">
+        <h2>Texto Aprofundado</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida lectus eget neque malesuada, ac blandit eros porta. Integer nec hendrerit eros. Duis consectetur justo id nisl dignissim malesuada.</p>
+        <p>Morbi sed lacus consequat, venenatis enim eu, vestibulum nunc. Nunc tempus magna a urna commodo, a sollicitudin elit euismod. Nulla facilisi. Mauris non ipsum nec justo aliquet ultricies.</p>
+        <img src="caminho/para/imagem" alt="Imagem Texto Aprofundado">
+    </section>
+
+    <footer class="rodape">        
+        <p class="rodape__texto">Projeto Integrador IV - 1/2024 - WebGIS</p>
+    </footer>
+</body>
+</html>
