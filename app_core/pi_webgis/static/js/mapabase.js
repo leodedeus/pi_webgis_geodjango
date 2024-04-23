@@ -1,7 +1,7 @@
 //Cria o mapa leaflet
 var map;
 var coordinicio = [-15.761476545982422, -47.73670621074695];
-var zoominicio = 10;
+var zoominicio = 10.5;
 map = L.map('map').setView(coordinicio, zoominicio);
 
 //Criando mapas base
@@ -37,7 +37,6 @@ var ras = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_co
             //opacity: 1.0
         });//.addTo(map)
 
-
 //Criação de variaveis para controlar a visualização das camadas
 var basemaps = {
     'Mapa Básico': osm_nolabel,
@@ -54,3 +53,22 @@ var camadas = {
     }
 
 L.control.layers(basemaps,camadas).addTo(map);
+
+// Função para ajustar a ordem das camadas quando uma sobreposição é adicionada
+function ajustarOrdemCamadas() {
+    // Verifique se a camada de escolas está ativada
+    if (map.hasLayer(escolas)) {
+        escolas.bringToFront();
+    }
+    // Verifique se a camada de lotes está ativada
+    if (map.hasLayer(lotes)) {
+        lotes.bringToFront();
+        // Verifique se a camada de escolas está ativada
+        if (map.hasLayer(escolas)) {
+            escolas.bringToFront();
+        }
+    }
+}
+
+// Adicione um ouvinte de eventos para o evento overlayadd
+map.on('overlayadd', ajustarOrdemCamadas);

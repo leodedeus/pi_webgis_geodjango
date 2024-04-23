@@ -34,7 +34,15 @@ map.on('click', function(e) {
 
     // Array para armazenar as informações das camadas ativadas
     var camadasAtivadas = [];
-
+    /*
+    // Mapear o nome das camadas aos tipos de geometria correspondentes
+    var tiposGeometria = {
+        'Escolas': 'ponto',
+        'Lotes': 'poligono',
+        'Regiões Administrativas': 'poligono'
+        // Adicione mais camadas conforme necessário
+    };
+    */
     // Verificar todas as camadas e capturar informações das camadas ativadas
     for (var layerName in camadas) {
         if (map.hasLayer(camadas[layerName])) {
