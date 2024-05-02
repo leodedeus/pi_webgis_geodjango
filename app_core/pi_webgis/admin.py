@@ -2,7 +2,7 @@ from django.contrib import admin
 from leaflet.admin import LeafletGeoAdmin
 #from django.contrib.gis import admin
 #from django.contrib.gis.admin import OSMGeoAdmin
-from .models import Escolaspublicas, Loteexistente, Regiaoadministrativa
+from .models import Escolaspublicas, Loteexistente, Regiaoadministrativa, Hidrografia, Lagoslagoas, Sistemaviario, Sistemaferroviario
 
 
 # Register your models here.
@@ -24,7 +24,31 @@ class LoteexistenteAdmin(LeafletGeoAdmin):
     list_display = ('ct_ciu', 'lt_enderec')
     search_fields = ('ct_ciu', 'lt_enderec')
 
+class HidrografiaAdmin(LeafletGeoAdmin):
+#class LoteexistenteAdmin(admin.GISModelAdmin):
+    list_display = ('osm_id', 'code','fclass', 'name')
+    search_fields = ('osm_id', 'code','fclass', 'name')
+
+class LagoslagonasAdmin(LeafletGeoAdmin):
+#class LoteexistenteAdmin(admin.GISModelAdmin):
+    list_display = ('osm_id', 'code','fclass', 'name')
+    search_fields = ('osm_id', 'code','fclass', 'name')
+
+class SistemaviarioAdmin(LeafletGeoAdmin):
+#class LoteexistenteAdmin(admin.GISModelAdmin):
+    list_display = ('osm_id', 'code','fclass', 'name')
+    search_fields = ('osm_id', 'code','fclass', 'name')
+
+class SistemaferroviarioAdmin(LeafletGeoAdmin):
+#class LoteexistenteAdmin(admin.GISModelAdmin):
+    list_display = ('osm_id', 'code','fclass', 'name')
+    search_fields = ('osm_id', 'code','fclass', 'name')
+
 admin.site.register(Loteexistente, LoteexistenteAdmin)
 admin.site.register(Escolaspublicas, EscolaspublicasAdmin)
 admin.site.register(Regiaoadministrativa, RegiaoadministrativaAdmin)
+admin.site.register(Hidrografia, HidrografiaAdmin)
+admin.site.register(Lagoslagoas, LagoslagonasAdmin)
+admin.site.register(Sistemaviario, SistemaviarioAdmin)
+admin.site.register(Sistemaferroviario, SistemaferroviarioAdmin)
     
