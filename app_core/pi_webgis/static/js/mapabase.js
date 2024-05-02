@@ -1,7 +1,7 @@
 //Cria o mapa leaflet
 var map;
 var coordinicio = [-15.761476545982422, -47.73670621074695];
-var zoominicio = 10.5;
+var zoominicio = 10;
 map = L.map('map').setView(coordinicio, zoominicio);
 
 //Criando mapas base
@@ -37,6 +37,34 @@ var ras = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_co
             //opacity: 1.0
         });//.addTo(map)
 
+var rios = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_container/wms',{
+            layers: 'workspace_piwebgis_container:feature_line_hidrografia',
+            format: 'image/png',
+            transparent: true,
+            //opacity: 1.0
+        });//.addTo(map)
+
+var vias = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_container/wms',{
+            layers: 'workspace_piwebgis_container:feature_line_sistema_viario',
+            format: 'image/png',
+            transparent: true,
+            //opacity: 1.0
+        });//.addTo(map)
+
+var ferrovias = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_container/wms',{
+            layers: 'workspace_piwebgis_container:feature_line_sistema_ferroviario',
+            format: 'image/png',
+            transparent: true,
+            //opacity: 1.0
+        });//.addTo(map)
+
+var lagos = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_container/wms',{
+            layers: 'workspace_piwebgis_container:feature_polygon_lagos_lagoas',
+            format: 'image/png',
+            transparent: true,
+            //opacity: 1.0
+        });//.addTo(map)
+
 //Criação de variaveis para controlar a visualização das camadas
 var basemaps = {
     'Mapa Básico': osm_nolabel,
@@ -49,7 +77,11 @@ var basemaps = {
 var camadas = {
     'Escolas': escolas,
     'Lotes': lotes,
-    'Regiões Administrativas': ras
+    'Regiões Administrativas': ras,
+    'Sistema Viário':vias,
+    'Sistema Ferroviário': ferrovias,
+    'Hidrografia': rios,
+    'Lago/Lagoas': lagos
     }
 
 L.control.layers(basemaps,camadas).addTo(map);
