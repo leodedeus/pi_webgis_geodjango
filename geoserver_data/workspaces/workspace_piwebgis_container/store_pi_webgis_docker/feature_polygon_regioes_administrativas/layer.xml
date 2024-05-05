@@ -1,0 +1,17 @@
+<layer>
+  <name>feature_polygon_regioes_administrativas</name>
+  <id>LayerInfoImpl-13aac174:18ef90869b2:-7ff5</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--2941491f:18f08582729:-7fff</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-13aac174:18ef90869b2:-7ff6</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-04-20 01:08:23.958 UTC</dateCreated>
+  <dateModified>2024-04-23 00:28:55.79 UTC</dateModified>
+</layer>

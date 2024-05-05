@@ -1,0 +1,16 @@
+<layer>
+  <name>feature_point_escola_publica</name>
+  <id>LayerInfoImpl-13aac174:18ef90869b2:-7ffb</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--570ae188:124761b8d78:-7fdf</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-13aac174:18ef90869b2:-7ffc</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-04-20 01:06:39.253 UTC</dateCreated>
+</layer>

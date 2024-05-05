@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgis_data:/var/lib/postgresql/data
+      - ./postgis_data:/var/lib/postgresql/data:rw
     restart: always
     networks:
       - pi_webgis_net
@@ -20,7 +20,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./geoserver_data:/opt/geoserver_data
+      - ./geoserver_data:/opt/geoserver_data:rw
     environment:
       - GEOSERVER_DATA_DIR=/opt/geoserver_data
       - GEOSERVER_OPTS="-Duser_Cors=1"

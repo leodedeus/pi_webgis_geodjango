@@ -1,0 +1,16 @@
+<layer>
+  <name>feature_line_sistema_viario</name>
+  <id>LayerInfoImpl-239c6261:18f373722b1:-7fef</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-239c6261:18f373722b1:-8000</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-239c6261:18f373722b1:-7ff0</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-05-02 02:59:20.681 UTC</dateCreated>
+</layer>

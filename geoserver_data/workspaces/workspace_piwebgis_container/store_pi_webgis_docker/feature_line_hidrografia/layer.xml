@@ -1,0 +1,22 @@
+<layer>
+  <name>feature_line_hidrografia</name>
+  <id>LayerInfoImpl-239c6261:18f373722b1:-7ffa</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-239c6261:18f373722b1:-7ffe</id>
+  </defaultStyle>
+  <styles class="linked-hash-set">
+    <style>
+      <id>StyleInfoImpl-239c6261:18f373722b1:-7ffe</id>
+    </style>
+  </styles>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-239c6261:18f373722b1:-7ffb</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-05-02 02:55:51.609 UTC</dateCreated>
+  <dateModified>2024-05-02 02:58:38.44 UTC</dateModified>
+</layer>

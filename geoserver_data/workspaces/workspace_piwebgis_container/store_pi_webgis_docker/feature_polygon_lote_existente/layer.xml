@@ -1,0 +1,16 @@
+<layer>
+  <name>feature_polygon_lote_existente</name>
+  <id>LayerInfoImpl-13aac174:18ef90869b2:-7ff8</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--570ae188:124761b8d78:-7fe0</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-13aac174:18ef90869b2:-7ff9</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-04-20 01:07:32.554 UTC</dateCreated>
+</layer>
