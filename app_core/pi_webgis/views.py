@@ -9,7 +9,7 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Transform
 #from django.contrib.gis.serializers import GeoJSONSerializer
 #from django.contrib.gis.geos import GEOSGeometry
-from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente
+from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas
 
 # Create your views here.
 
@@ -177,6 +177,47 @@ def identificar_feicao(request):
                     return JsonResponse({'error': 'Nenhuma região administrativa encontrada para as coordenadas fornecidas'})
             except Exception as e:
                 return JsonResponse({'error': str(e)})
+        
+        elif nome_camada == 'Lotes':
+            print('camada consultada no banco: ', nome_camada)
+
+            # Realize a consulta espacial para encontrar o lote mais próximo ao ponto clicado
+            try:
+                #Loteexistente se refere a classe no arquivo models.py
+                lote_existente = Loteexistente.objects.filter(geom__intersects=ponto_clicado).first()
+                print('resultado consulta no banco: ', lote_existente)
+
+                # Verifique se encontrou uma região administrativa
+                if lote_existente:
+                    geojson_identify_lote = serialize("geojson", [lote_existente], geometry_field="geom", fields=["ct_ciu", "lt_enderec", "lt_cep", "ac_area_ct", "ct_origem"])
+                    print(geojson_identify_lote)
+                    # Retorne um HttpResponse com o GeoJSON da feição
+                    return HttpResponse(geojson_identify_lote, content_type="application/json")
+                else:
+                    return JsonResponse({'error': 'Nenhum lote encontrado para as coordenadas fornecidas'})
+            except Exception as e:
+                return JsonResponse({'error': str(e)})
+            
+        elif nome_camada == 'Lago/Lagoas':
+            print('camada consultada no banco: ', nome_camada)
+
+            # Realize a consulta espacial para encontrar o lote mais próximo ao ponto clicado
+            try:
+                #Loteexistente se refere a classe no arquivo models.py
+                lago_lagoas = Lagoslagoas.objects.filter(geom__intersects=ponto_clicado).first()
+                print('resultado consulta no banco: ', lago_lagoas)
+
+                # Verifique se encontrou uma região administrativa
+                if lago_lagoas:
+                    geojson_identify_lago = serialize("geojson", [lago_lagoas], geometry_field="geom", fields=["name", "fclass"])
+                    print(geojson_identify_lago)
+                    # Retorne um HttpResponse com o GeoJSON da feição
+                    return HttpResponse(geojson_identify_lago, content_type="application/json")
+                else:
+                    return JsonResponse({'error': 'Nenhum lote encontrado para as coordenadas fornecidas'})
+            except Exception as e:
+                return JsonResponse({'error': str(e)})
+            
     else:
         return JsonResponse({'error': 'Método não permitido'})
 

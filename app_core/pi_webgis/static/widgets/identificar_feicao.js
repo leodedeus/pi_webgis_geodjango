@@ -34,6 +34,7 @@ map.on('click', function(e) {
 
     // Array para armazenar as informações das camadas ativadas
     var camadasAtivadas = [];
+    
     /*
     // Mapear o nome das camadas aos tipos de geometria correspondentes
     var tiposGeometria = {
@@ -53,19 +54,29 @@ map.on('click', function(e) {
             var nomeCamada = layerName;
 
             // Adicionar informações da camada ativada ao array
+            camadasAtivadas.push(layerName)
+            /*
             camadasAtivadas.push({
                 nomeCamada: nomeCamada
             });
+            */
         }
     }
 
     // Faça algo com as coordenadas, o nome e o tipo de geometria da camada
     console.log('Coordenadas do clique:', coordenadas);
     console.log('Camada habilitada:', camadasAtivadas);
+    //console.log(typeof(camadasAtivadas));
 
     // Se não houver camadas ativadas, saia da função
     if (camadasAtivadas.length === 0) {
         console.log('Nenhuma camada ativada.');
+        return;
+    }
+
+    if (camadasAtivadas.length > 1) {
+        console.log('Mais de uma camada ativada');
+        window.alert("Habilite apenas uma camada para visualizar as informações");
         return;
     }
 
