@@ -159,10 +159,9 @@ body {
     background-color: #C98CF1; /* Alterado para um tom mais claro ao passar o mouse */
 }
 
-#btnIdentificarFeicao.ativo {
-    /* Adicione estilos para indicar que a identificação de feição está habilitada */
-    background-color: #2ab385;
-    color: white;
+#btnLogin {
+    width: 50px; /* Define a largura do botão */
+    height: auto; /* Mantém a proporção da altura */
 }
 
 /* MAPA */ 

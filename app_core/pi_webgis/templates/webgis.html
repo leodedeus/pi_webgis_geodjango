@@ -28,7 +28,9 @@
         <div id="buttonContainer-mapa">
             <button id="btnAddEscola">Adicionar Escola</button>
             <button id="btnPesquisarEscola">Pesquisar Escola</button>
-            <button id="btnIdentificarFeicao">Identificar Objeto</button>
+            <a href="{% url 'admin:index' %}">
+                <img id="btnLogin" src="{% static 'assets/icones/login.jpg' %}" alt="Login">
+            </a>
         </div>                        
     </header>
     

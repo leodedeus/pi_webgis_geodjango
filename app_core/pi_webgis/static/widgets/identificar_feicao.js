@@ -121,6 +121,13 @@ function fetchCSRFToken() {
             .then(data => {
                 console.log('Resposta do servidor:', data);
                 console.log('Ainda não entrou no try');
+
+                // Verifique se há um erro retornado pelo servidor
+            if (data.error) {
+                // Se houver um erro, exiba-o para o usuário
+                alert(data.error); // Você pode usar uma caixa de diálogo ou um elemento na interface para exibir a mensagem de erro
+                return; // Pare a execução da função aqui para evitar erros adicionais
+            }
  
  
                 try {
