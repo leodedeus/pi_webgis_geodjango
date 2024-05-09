@@ -7,10 +7,10 @@ from django.http import HttpResponse
 from django.middleware.csrf import get_token
 from django.core.serializers import serialize
 from django.contrib.gis.geos import Point
-from django.contrib.gis.db.models.functions import Transform
+#from django.contrib.gis.db.models.functions import Transform
 #from django.contrib.gis.serializers import GeoJSONSerializer
 #from django.contrib.gis.geos import GEOSGeometry
-from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas
+from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas, Sistemaviario, Sistemaferroviario, Hidrografia
 
 # Create your views here.
 def get_csrf_token(request):
@@ -45,7 +45,7 @@ def ViewRegiaoadministrativa_geojson(request):
 
     return JsonResponse(feature_collection_ra)
 '''
-
+'''
 def ViewEscolaspublicas_geojson(request):
     escolas = Escolaspublicas.objects.all() #executando um consulta no banco para retornar todos os registros da tabela regiao administrativa
     geojson_escolas = serialize("geojson", escolas, geometry_field="geom", fields=["cod_entidade", "nome_escola",])
@@ -59,7 +59,7 @@ def ViewRegiaoAdministrativa_geojson(request):
     geojson_ras_data = json.loads(geojson_ras)
     geojson_ras_fixed = json.dumps(geojson_ras_data, indent=None)
     return HttpResponse(geojson_ras_fixed, content_type="application/json")
-
+'''
 '''
 def ViewLotesExistentes_geojson(request):
     lotes = Loteexistente.objects.all()
@@ -127,17 +127,14 @@ def identificar_feicao(request):
    if request.method == 'POST':
        print('entrou no if request.method')
 
-
        # Decodifique os dados JSON do corpo da solicitação
        data = json.loads(request.body) #este item foi a alteração que resolver para a view receber os dados do front
        print(data)
-
 
        lat = float(data.get('lat'))
        lng = float(data.get('lng'))
        nomeCamada = data.get('nomeCamada')
        print(lat, lng, nomeCamada)
-
 
        # Converta as coordenadas do clique para o sistema de coordenadas da camada no banco de dados
        ponto_clicado = Point(lng, lat, srid=4326)  # srid=4326 é o sistema de coordenadas lat/long
@@ -149,17 +146,12 @@ def identificar_feicao(request):
        else:
            return JsonResponse({'error': 'Falha ao criar o ponto clicado'})
 
-
        if nomeCamada == 'Regiões Administrativas':
            print('camada consultada no banco: ', nomeCamada)
-
-
            # Realize a consulta espacial para encontrar a região administrativa que intersecta com o ponto clicado
            try:
                regiao_administrativa = Regiaoadministrativa.objects.filter(geom__intersects=ponto_clicado).first()
                print('resultado consulta no banco: ', regiao_administrativa)
-
-
                # Verifique se encontrou uma região administrativa
                if regiao_administrativa:
                    geojson_identify_ra = serialize("geojson", [regiao_administrativa], geometry_field="geom", fields=["ra_cira", "ra_nome", "ra_codigo"])
@@ -173,15 +165,11 @@ def identificar_feicao(request):
       
        elif nomeCamada == 'Lotes':
            print('camada consultada no banco: ', nomeCamada)
-
-
            # Realize a consulta espacial para encontrar o lote mais próximo ao ponto clicado
            try:
                #Loteexistente se refere a classe no arquivo models.py
                lote_existente = Loteexistente.objects.filter(geom__intersects=ponto_clicado).first()
                print('resultado consulta no banco: ', lote_existente)
-
-
                # Verifique se encontrou uma região administrativa
                if lote_existente:
                    geojson_identify_lote = serialize("geojson", [lote_existente], geometry_field="geom", fields=["ct_ciu", "lt_enderec", "lt_cep", "ac_area_ct", "ct_origem"])
@@ -195,15 +183,11 @@ def identificar_feicao(request):
           
        elif nomeCamada == 'Lago/Lagoas':
            print('camada consultada no banco: ', nomeCamada)
-
-
            # Realize a consulta espacial para encontrar o lote mais próximo ao ponto clicado
            try:
                #Loteexistente se refere a classe no arquivo models.py
                lago_lagoas = Lagoslagoas.objects.filter(geom__intersects=ponto_clicado).first()
                print('resultado consulta no banco: ', lago_lagoas)
-
-
                # Verifique se encontrou uma região administrativa
                if lago_lagoas:
                    geojson_identify_lago = serialize("geojson", [lago_lagoas], geometry_field="geom", fields=["name", "fclass"])
@@ -211,7 +195,87 @@ def identificar_feicao(request):
                    # Retorne um HttpResponse com o GeoJSON da feição
                    return HttpResponse(geojson_identify_lago, content_type="application/json")
                else:
-                   return JsonResponse({'error': 'Nenhum lote encontrado para as coordenadas fornecidas'})
+                   return JsonResponse({'error': 'Nenhum lago encontrado para as coordenadas fornecidas'})
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+        
+       elif nomeCamada == 'Escolas':
+           print('camada consultada no banco: ', nomeCamada)
+           ponto_buffer = ponto_clicado.buffer(10)#10 significa a distancia em unidades do sistema de coordenadas
+           print('buffer gerado')
+           # Realize a consulta espacial para encontrar a escola mais próximo ao ponto clicado
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               escolas = Escolaspublicas.objects.filter(geom__intersects=ponto_buffer).first()
+               print('resultado consulta no banco: ',escolas)
+               # Verifique se encontrou uma região administrativa
+               if escolas:
+                   geojson_identify_escola = serialize("geojson", [escolas], geometry_field="geom", fields=["cod_entidade", "nome_escola", "endereco", "cep", "telefone"])
+                   print(geojson_identify_escola)
+                   # Retorne um HttpResponse com o GeoJSON da feição
+                   return HttpResponse(geojson_identify_escola, content_type="application/json")
+               else:
+                   return JsonResponse({'error': 'Nenhuma escola encontrada para as coordenadas fornecidas'})
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+        
+       elif nomeCamada == 'Sistema Viário':
+           print('camada consultada no banco: ', nomeCamada)
+           ponto_buffer = ponto_clicado.buffer(10)#10 significa a distancia em unidades do sistema de coordenadas
+           print('buffer gerado')
+           # Realize a consulta espacial para encontrar a escola mais próximo ao ponto clicado
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               vias = Sistemaviario.objects.filter(geom__intersects=ponto_buffer).first()
+               print('resultado consulta no banco: ',vias)
+               # Verifique se encontrou uma região administrativa
+               if vias:
+                   geojson_identify_vias = serialize("geojson", [vias], geometry_field="geom", fields=["fclass", "name", "oneway", "maxspeed", "layer", "bridge", "tunnel"])
+                   print(geojson_identify_vias)
+                   # Retorne um HttpResponse com o GeoJSON da feição
+                   return HttpResponse(geojson_identify_vias, content_type="application/json")
+               else:
+                   return JsonResponse({'error': 'Nenhuma via encontrada para as coordenadas fornecidas'})
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+           
+       elif nomeCamada == 'Sistema Ferroviário':
+           print('camada consultada no banco: ', nomeCamada)
+           ponto_buffer = ponto_clicado.buffer(10)#10 significa a distancia em unidades do sistema de coordenadas
+           print('buffer gerado')
+           # Realize a consulta espacial para encontrar a escola mais próximo ao ponto clicado
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               ferrovias = Sistemaferroviario.objects.filter(geom__intersects=ponto_buffer).first()
+               print('resultado consulta no banco: ',ferrovias)
+               # Verifique se encontrou uma região administrativa
+               if ferrovias:
+                   geojson_identify_ferrovias = serialize("geojson", [vias], geometry_field="geom", fields=["fclass", "layer", "bridge", "tunnel"])
+                   print(geojson_identify_ferrovias)
+                   # Retorne um HttpResponse com o GeoJSON da feição
+                   return HttpResponse(geojson_identify_ferrovias, content_type="application/json")
+               else:
+                   return JsonResponse({'error': 'Nenhuma ferrovia encontrado para as coordenadas fornecidas'})
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+        
+       elif nomeCamada == 'Hidrografia':
+           print('camada consultada no banco: ', nomeCamada)
+           ponto_buffer = ponto_clicado.buffer(10)#10 significa a distancia em unidades do sistema de coordenadas
+           print('buffer gerado')
+           # Realize a consulta espacial para encontrar a escola mais próximo ao ponto clicado
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               hidrografia = Hidrografia.objects.filter(geom__intersects=ponto_buffer).first()
+               print('resultado consulta no banco: ',hidrografia)
+               # Verifique se encontrou uma região administrativa
+               if hidrografia:
+                   geojson_identify_hidrografia = serialize("geojson", [hidrografia], geometry_field="geom", fields=["fclass", "width", "name"])
+                   print(geojson_identify_hidrografia)
+                   # Retorne um HttpResponse com o GeoJSON da feição
+                   return HttpResponse(geojson_identify_hidrografia, content_type="application/json")
+               else:
+                   return JsonResponse({'error': 'Nenhuma hidrografia encontrada para as coordenadas fornecidas'})
            except Exception as e:
                return JsonResponse({'error': str(e)})
           
