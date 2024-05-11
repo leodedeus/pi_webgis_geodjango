@@ -28,9 +28,14 @@
         <div id="buttonContainer-mapa">
             <button id="btnAddEscola">Adicionar Escola</button>
             <button id="btnPesquisarEscola">Pesquisar Escola</button>
-            <a href="{% url 'admin:index' %}">
-                <img id="btnLogin" src="{% static 'assets/icones/login.jpg' %}" alt="Login">
-            </a>
+            <button id="btnMedida">
+                <img id="imgMedida" src="{% static 'assets/icones/medida.png' %}" alt="Medida">
+            </button>
+            <button id="btnLogin">
+                <a href="{% url 'admin:index' %}">
+                    <img id="imgLogin" src="{% static 'assets/icones/login.png' %}" alt="Login">
+                </a>
+            </button>
         </div>                        
     </header>
     
@@ -38,6 +43,7 @@
 
     {% leaflet_js %}
     <script src="{% static 'js/mapabase.js' %}"></script>
+    <script src="{% static 'widgets/ferramenta_medida.js' %}"></script>
     <script src="{% static 'widgets/identificar_feicao.js' %}"></script>
     <script src="{% static 'widgets/busca_endereco_local.js' %}"></script>
 

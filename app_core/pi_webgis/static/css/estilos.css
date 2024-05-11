@@ -97,8 +97,6 @@ body {
     background-color: #C98CF1;
 }
 
-
-
 #buttonContainer {
     margin-left: 80vw; /* Empurra a div para a direita o máximo possível */
     display: flex;
@@ -125,12 +123,6 @@ body {
     background-color: #C98CF1; /* Alterado para um tom mais claro ao passar o mouse */
 }
 
-#btnIdentificarFeicao.ativo {
-    /* Adicione estilos para indicar que a identificação de feição está habilitada */
-    background-color: #2ab385;
-    color: white;
-}
-
 /* BUTTON CONTAINER MAPA */
 
 
@@ -142,6 +134,7 @@ body {
 }
 
 #buttonContainer-mapa button {
+    position: relative; /* Permitirá posicionamento relativo para o botão */
     font-family: 'Space Grotesk', sans-serif;
     margin-right: 10px;
     text-decoration: none;
@@ -159,9 +152,13 @@ body {
     background-color: #C98CF1; /* Alterado para um tom mais claro ao passar o mouse */
 }
 
-#btnLogin {
-    width: 50px; /* Define a largura do botão */
-    height: auto; /* Mantém a proporção da altura */
+#buttonContainer-mapa button img {
+    position: absolute; /* Permitirá posicionamento absoluto para a imagem */
+    top: 50%; /* Posiciona a parte superior da imagem no meio do botão */
+    left: 50%; /* Posiciona a esquerda da imagem no meio do botão */
+    transform: translate(-50%, -50%); /* Move a imagem para cima e para a esquerda em 50% do seu próprio tamanho */
+    width: 20px;
+    height: auto;
 }
 
 /* MAPA */ 
