@@ -9,6 +9,7 @@
     <title>LocCerta</title>
     {% leaflet_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos_leaflet_measure.css' %}">
 </head>
 <body>
     
@@ -42,8 +43,9 @@
     <div id="map"></div>
 
     {% leaflet_js %}
+    <script src="{% static 'widgets/ferramenta_leaflet_measure.js' %}"></script>
     <script src="{% static 'js/mapabase.js' %}"></script>
-    <script src="{% static 'widgets/ferramenta_medida.js' %}"></script>
+    <!--script src="{% static 'widgets/ferramenta_medida.js' %}"></script-->
     <script src="{% static 'widgets/identificar_feicao.js' %}"></script>
     <script src="{% static 'widgets/busca_endereco_local.js' %}"></script>
 

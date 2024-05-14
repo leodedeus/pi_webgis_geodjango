@@ -104,3 +104,9 @@ function ajustarOrdemCamadas() {
 
 // Adicione um ouvinte de eventos para o evento overlayadd
 map.on('overlayadd', ajustarOrdemCamadas);
+
+//Adiciona um controlador leaflet para a ferramenta de medida
+var measure = L.control.measure({}).addTo(map);
+
+// Imprime o objeto measure no console do navegador
+console.log('Objeto measure:', measure);

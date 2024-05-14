@@ -1,3 +1,4 @@
+/*
 document.getElementById("btnMedida").addEventListener("click", function(event) {
     // Obter as dimensões da tela
     var screenWidth = window.screen.width;
@@ -31,8 +32,17 @@ document.getElementById("btnMedida").addEventListener("click", function(event) {
     // Escrever o conteúdo na janela popup
     popupWindowMedida.document.write(popupContentMedida);
 });
+*/
+document.getElementById("btnMedicao").addEventListener("click", function(event) {
+    // Chame a função de medição fornecida pelo plugin Leaflet Measure
+    L.control.measure({
+        position: 'topright', // Posição da janela de medição
+        collapsed: false, // Definir como false para manter a janela aberta por padrão
+        color: '#FF0080', // Cor das linhas de medição
+    }).addTo(map); // Adicionar à instância do mapa (substitua 'map' pelo seu próprio objeto de mapa)
+});
 
-
+/*
 // Adicione um evento de clique ao botão "Medir Área" na janela de popup
 document.getElementById("btnCalcularArea").addEventListener("click", function(event) {
     // Habilitar a ferramenta de desenho de polígono do Leaflet
@@ -77,5 +87,5 @@ document.getElementById("btnCalcularArea").addEventListener("click", function(ev
         layer.bindPopup(popupContent).openPopup();
     });
 });
-
+*/
 
