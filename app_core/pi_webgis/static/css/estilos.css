@@ -123,6 +123,13 @@ body {
     background-color: #C98CF1; /* Alterado para um tom mais claro ao passar o mouse */
 }
 
+#btnIdentify.ativo {
+    /* Adicione estilos para indicar que a identificação de feição está habilitada */
+    background-color: #2ab385;
+    color: white;
+}
+
+
 /* BUTTON CONTAINER MAPA */
 
 
