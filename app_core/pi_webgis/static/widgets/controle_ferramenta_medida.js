@@ -1,38 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const map = window.map;
-    const btnToggleMedida = document.getElementById('btnToggleMedida');
-    let medidaHabilitada = false;
-    let medidaControl = null;
+    const btnControlaMedida = document.getElementById('btnMedida');
+    let medidaAtiva = false;
 
-    // Adicionar um ouvinte de eventos para habilitar/desabilitar a função de medida
-    btnToggleMedida.addEventListener('click', function () {
-        medidaHabilitada = !medidaHabilitada;
-        btnToggleMedida.classList.toggle('ativo', medidaHabilitada);
-
-        if (medidaHabilitada) {
-            if (!medidaControl) {
-                inicializarControleMedida();
-            } else {
-                // Se o controle já estiver presente, remova-o do mapa
-                map.removeControl(medidaControl);
-                medidaControl = null;
-            }
+    btnControlaMedida.addEventListener('click', function () {
+        if (medidaAtiva) {
+            measure.remove();
+            btnControlaMedida.classList.remove('ativo');
         } else {
-            if (medidaControl) {
-                // Se o controle estiver presente, remova-o do mapa
-                map.removeControl(medidaControl);
-                medidaControl = null;
-            }
+            measure.addTo(map);
+            btnControlaMedida.classList.add('ativo');
         }
+        medidaAtiva = !medidaAtiva;
     });
-
-    // Inicializar o controle de medida
-    function inicializarControleMedida() {
-        medidaControl = L.control.measure({
-            position: 'bottomright',
-            title: 'Ferramenta de Medida',
-            collapsed: true,
-            color: '#FF0080',
-        }).addTo(map);
-    }
 });

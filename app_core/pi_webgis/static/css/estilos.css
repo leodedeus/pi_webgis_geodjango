@@ -129,6 +129,11 @@ body {
     color: white;
 }
 
+#btnMedida.ativo {
+    /* Adicione estilos para indicar que a medida de feição está habilitada */
+    background-color: #2ab385;
+    color: white;
+}
 
 /* BUTTON CONTAINER MAPA */
 

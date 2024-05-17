@@ -84,7 +84,7 @@ var camadas = {
     'Lago/Lagoas': lagos
     }
 
-L.control.layers(basemaps,camadas).addTo(map);
+var controlLayers = L.control.layers(basemaps,camadas,{collapsed: false}).addTo(map);
 
 // Função para ajustar a ordem das camadas quando uma sobreposição é adicionada
 function ajustarOrdemCamadas() {
@@ -107,6 +107,7 @@ map.on('overlayadd', ajustarOrdemCamadas);
 
 //Adiciona um controlador leaflet para a ferramenta de medida
 var measure = L.control.measure({}).addTo(map);
+measure.remove()
 
 // Imprime o objeto measure no console do navegador
 console.log('Objeto measure:', measure);

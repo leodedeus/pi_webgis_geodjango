@@ -16,7 +16,7 @@
     L.Measure = {
         linearMeasurement: "Medir distância",
         areaMeasurement: "Calcular área",
-        start: "Start",
+        start: "Início",
         meter: "m",
         meterDecimals: 0,
         kilometer: "km",
@@ -29,9 +29,9 @@
 
     L.Control.Measure = L.Control.extend({
         options: {
-            position: "bottomright",
+            //position: "bottomright",
             title: "Ferramenta de Medida",
-            collapsed: true,
+            collapsed: false,
             color: "#FF0080",
         },
         initialize: function (options) {
@@ -43,7 +43,7 @@
             return this._container;
         },
         _buildContainer: function () {
-            this._container = L.DomUtil.create("div", "leaflet-control-measure leaflet-bar leaflet-control");
+            this._container = L.DomUtil.create("div", "leaflet-control-measure custom-measure-control leaflet-bar leaflet-control");
 
             this._contents = L.DomUtil.create("div", "leaflet-measure-contents", this._container);
 
