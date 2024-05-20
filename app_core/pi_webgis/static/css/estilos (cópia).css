@@ -26,15 +26,14 @@ body {
     flex-direction: column; /* Organiza os elementos em coluna */
 }
 
-/* HEADER */
+/*HEADER*/
+
 .cabecalho {
     align-items: center;
     display: flex;
     justify-content: space-between;
     margin: 0;
     background-color: #0E2881;
-    padding: 30px; /* Adicionei um padding para espaçamento interno */
-    font-weight: bold;
 }
 
 .cabecalho__logo-container {
@@ -49,147 +48,16 @@ body {
 }
 
 .cabecalho__logo {
-    width: 160px; 
+    width: 25px; 
 }
 
-/* Dividir em colunas */
-.coluna {
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.coluna-meio {
-    justify-content: center;
-}
-
-.coluna-direita {
-    justify-content: flex-end;
-}
-
-/* Estilo dos links */
-.cabecalho__link {
-    color: #FFFFFF;
-    text-decoration: none;
-    margin: 0 15px; /* Espaçamento entre os links */
-}
-
-.coluna-meio a span {
-    border-bottom: 3px solid #EFA007; /* Adicionando sublinhado */
-    padding-bottom: 3px; /* Espaço entre a palavra e o sublinhado */
-}
-
-/* Estilo do botão */
-.btnDEMO {
-    background-color: #EFA007;
-    color: #0E2881;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.btnDEMO:hover {
-    background-color: #FFFFFF;
-    color: #0E2881;
-}
-
-/*BANNER*/
-
-.banner-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden; /* Para garantir que não haja rolagem horizontal */
-    display: flex;
-}
+/* BANNER */
 
 .banner {
-    width: 100%;
-    height: auto;
+    width: 100%; /* Para preencher a tela horizontalmente */
+    height: auto; /* Para manter a proporção da imagem */
+    max-height: 200px; /* Altura máxima desejada */
 }
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-}
-
-.logopng {
-    width: 60%; /* 3/5 da largura total */
-    height: auto; /* Isso garante que a altura seja ajustada automaticamente */
-    align-self: center; /* Ajustado para centralizar verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-}
-
-.logo{
-    padding: 0 0 0 20%;
-}
-
-.formulario {
-    width: 20%; /* 2/5 da largura total */
-    background-color: #0E2881; /* Cor de fundo azul */
-    padding: 20px;
-    border-radius: 10px; /* Bordas arredondadas */
-    color: #ffffff; /* Cor do texto branco */
-    font-weight: bold;
-}
-
-.formulario h2 {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 24px;
-}
-
-.input-group {
-    margin-bottom: 15px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.input-group input {
-    width: calc(100% - 16px); /* Largura total menos o preenchimento */
-    padding: 8px;
-    border: 1px solid #ffffff; /* Borda branca */
-    border-radius: 5px; /* Bordas arredondadas */
-    background-color: #ffffff; /* Fundo branco transparente */
-    color: #0E2881; /* Cor do texto branco */
-}
-
-.input-group input:last-child {
-    margin-right: 0;
-}
-
-/* Estilo do botão */
-/* Estilizando o botão */
-.btnFORM {
-    width: 100%; /* Definindo a largura total do botão */
-    background-color: #EFA007;
-    color: #0E2881;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    display: block; /* Convertendo o botão em um elemento de bloco */
-    margin: 0 auto; /* Definindo margem automática para centralizar horizontalmente */
-    font-size: 24px;
-}
-
-
-.btnFORM:hover {
-    background-color: #FFFFFF;
-    color: #0E2881;
-}
-
-
 
 /* FORMULARIO DE BUSCA (WEBGIS)*/
 
@@ -313,41 +181,46 @@ body {
     border-radius: 10px;
 }
 
-/* LANDING PAGE */
+/* LANDPAGE */
+
+/* Estilos para a seção Sobre Nós */
 .servicos {
     padding: 50px 10vw;
-    background-image: url('/static/assets/img/background-servicos.png');
-    background-size: cover; /* Ajusta o tamanho da imagem para cobrir todo o elemento */
-    background-position: center; /* Centraliza a imagem */
+    background-color: #04244F; /* Cor azul escura */
     font-size: 20px;
     text-align: center;
-    color: white;
+    color: #04244F;
     display: flex;
     flex-direction: column;
-    background-color: #EFEFEF;
 }
-
 
 .servicos h2{
     text-align: left;
-    color: #0E2881;
-    font-weight: bold;
-}
-
-.servicos_texto{
-    text-align: left;
     color: white;
 }
 
-.servicos_texto h2{
+.servicos_1{
     text-align: left;
-    color: white;
+}
+
+.servicos_1 h2{
+    text-align: left;
+    color: #04244F;
+}
+
+.servicos_2{
+    text-align: right;
+}
+
+.servicos_2 h2{
+    text-align: right;
+    color: #04244F;
 }
 
 .servicos section {
     display: flex;
     margin-bottom: 20px;
-    background-color: #0E2881; /* Cor de fundo dos retângulos */
+    background-color: #ffffff; /* Cor de fundo dos retângulos */
 }
 
 .servicos section div {
@@ -356,25 +229,14 @@ body {
 }
 
 .servicos img {
-    width: 50%; /* Definindo a largura da imagem para ocupar 50% da largura da seção */
-    height: auto; /* Mantendo a proporção da imagem */
+    width: 350px;
+    height: 200px;
 }
 
 .servicos h2 {
     margin-bottom: 20px;
     font-size: 24px;
-    text-align: left; /* Alinhando o texto à esquerda */
 }
-
-/* Ajustando a largura do texto para ocupar a outra metade da seção */
-.servicos section div {
-    flex: 1; /* Definindo o texto para ocupar a mesma largura que a imagem */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Alinhando o conteúdo verticalmente */
-}
-
 
 /* Alternar a ordem da imagem e do texto para servicos_2 */
 .servicos_2 img {
@@ -384,7 +246,7 @@ body {
 /* Estilos para a seção O que é GIS */
 .o-que-e-gis {
     padding: 10px 10vw;
-    background-color: #0E2881;
+    background-color: #302d2d;
     font-size: 20px;
     text-align: left;
     display: flex;
@@ -395,33 +257,28 @@ body {
 .o-que-e-gis div {
     flex: 1; /* Ocupa o espaço restante */
     padding-right: 20px; /* Adicionado espaçamento entre texto e imagem */
-    display: flex; /* Torna o conteúdo flexível */
-    flex-direction: column; /* Organiza o conteúdo em coluna */
-    justify-content: center; /* Alinha o conteúdo verticalmente no centro */
 }
-
 
 .o-que-e-gis h2 {
     margin-bottom: 20px;
     font-size: 24px;
-    font-weight: bold;
 }
 
 .o-que-e-gis img {
-    width: 560px;
+    width: 250px;
     height: auto;
     align-self: center; /* Alinha a imagem verticalmente no centro */
 }
 
 /* Estilos para a seção Texto Aprofundado */
 .sobre-nos {
-    padding: 100px;
-    background-color: #EFEFEF;
+    padding: 10px 10vw;
+    background-color: black;
     font-size: 20px;
     text-align: left;
     display: flex;
     flex-direction: row; /* Alterado para row para alinhar itens na horizontal */
-    color: #302D2D
+    color:white
 }
 
 .sobre-nos div {
@@ -432,42 +289,27 @@ body {
 .sobre-nos h2 {
     margin-bottom: 20px;
     font-size: 24px;
-    font-weight: bold;
 }
 
 .sobre-nos img {
-    width: 560px;
+    width: 200px;
     height: auto;
     align-self: center; /* Alinha a imagem verticalmente no centro */
+    order: -1;
 }
 
 /* FOOTER */
 
 .rodape {
-    background-color: #302D2D;
+    background-color: #04244F;
     color: #ffffff;
     padding: 20px;
     text-align: center;
-    display: flex;
-    justify-content: space-between; /* Distribui os itens igualmente ao longo do eixo principal */
-    align-items: center; /* Alinha os itens verticalmente ao centro */
 }
 
 .rodape__texto {
     font-size: 20px;
-    text-align: left;
-    margin-left: 10%;
 }
-
-.rodape__texto b{
-    font-weight: bold;
-}
-
-/* Estilo para a div da logo */
-.rodape__logo {
-    margin-right: 10%; /* Empurra a div para o canto direito */
-}
-
 
 @media screen and (max-width: 768px) {
     /* Aplique ajustes de estilo para telas menores que 768px */

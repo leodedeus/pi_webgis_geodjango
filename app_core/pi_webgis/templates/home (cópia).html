@@ -15,84 +15,49 @@
 </head>
 <body>
     <header class="cabecalho">
-        <div class="coluna coluna-esquerda">
-            <div class="cabecalho__logo-container">
-                <a href="{% url '' %}" class="cabecalho__link">
-                    <img class="cabecalho__logo" src="{% static '/assets/img/locCerta.png' %}" alt="Logo do WebGIS" />
-                    <!-- <span class="cabecalho__texto">LocCerta</span> -->
-                </a>
-            </div>
-        </div>
-        <div class="coluna coluna-meio">
-            <a href="#servicos" class="cabecalho__link"><span>SERVIÇOS</span></a>
-            <a href="#o-que-e-gis" class="cabecalho__link"><span>O QUE É GIS</span></a>
-            <a href="#sobre-nos" class="cabecalho__link"><span>SOBRE NÓS</span></a>
-        </div>
-        <div class="coluna coluna-direita">
-            <a href="{% url 'url_webgis' %}">
-                <button class="btnDEMO">CONHEÇA A DEMO</button>
+        <div class="cabecalho__logo-container">
+            <a href="{% url '' %}" class="cabecalho__link">
+                <img class="cabecalho__logo" src="{% static '/assets/icones/location.png' %}" alt="Logo do WebGIS" />
+                <span class="cabecalho__texto">LocCerta</span>
             </a>
-        </div>
+            <div id="buttonContainer">
+                <a href="{% url 'url_webgis' %}">
+                    <button id="btnDEMO">DEMO</button>
+                </a>
+            </div> 
+        </div>                       
     </header>
     
-    
-    <div class="banner-container">
-        <img src="{% static '/assets/img/banner.png' %}" alt="Banner" class="banner">
-        <div class="overlay">
-            <div class="logopng">
-                <img src="{% static '/assets/img/Logo.png' %}" alt="LocCerta" class="logo">
-            </div>
-            <div class="formulario">
-                <h2>QUER SABER MAIS?</h2>
-                <form>
-                    <div class="input-group">
-                        <label for="nome">Nome:</label>
-                        <input type="text" id="nome" name="nome" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required placeholder="exemplo@gmail.com">
-                    </div>
-                    <div class="input-group">
-                        <label for="telefone">Telefone:</label>
-                        <!-- <input type="tel" id="ddd" name="telefone_ddd" maxlength="2" placeholder="DDD" required> -->
-                        <input type="tel" id="telefone" name="telefone_numero" maxlength="9" placeholder="(DDD) X XXXX-XXXX" required>
-                    </div>
-                    <button class="btnFORM" type="submit">ENVIAR</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    
+    <img src="{% static '/assets/img/banner.png' %}" alt="Banner" class="banner">
 
-    <div class="servicos" id="servicos">
-        <h2>SERVIÇOS</h2>
-        <section class="servicos_texto">
+    <div class="servicos">
+        <h2>Serviços</h2>
+        <section class="servicos_1">
             <div>
                 <h2>Personalização Sob Medida</h2>
                 <p>Compartilhe seus dados geográficos de forma eficiente. Nossa solução é desenvolvida especificamente para atender às necessidades exclusivas da sua empresa.</p>
             </div>
-            <img src="{% static '/assets/img/servicos01.png' %}" alt="Imagem 1">
+            <img src="{% static '/assets/img/servicos01.jpg' %}" alt="Imagem 1">
         </section>
     
-        <section class="servicos_texto">
-            <img src="{% static '/assets/img/servicos02.png' %}" alt="Imagem 2">
+        <section class="servicos_2">
+            <img src="{% static '/assets/img/servicos02.jpg' %}" alt="Imagem 2">
             <div>
                 <h2>Tomada de Decisão Informada</h2>
                 <p>Capacitamos sua equipe a tomar decisões estratégicas com base em dados geográficos precisos, impulsionando o sucesso do seu negócio</p>
             </div>
         </section>
 
-        <section class="servicos_texto">
+        <section class="servicos_1">
             <div>
                 <h2>Inovação Constante</h2>
                 <p>Mantemos nosso software atualizado com as últimas tecnologias e funcionalidades no campo do SIG web.</p>
             </div>
-            <img src="{% static '/assets/img/servicos03.png' %}" alt="Imagem 1">
+            <img src="{% static '/assets/img/servicos03.jpg' %}" alt="Imagem 1">
         </section>
     
-        <section class="servicos_texto">
-            <img src="{% static '/assets/img/servicos04.png' %}" alt="Imagem 2">
+        <section class="servicos_2">
+            <img src="{% static '/assets/img/servicos04.jpg' %}" alt="Imagem 2">
             <div>
                 <h2>Suporte Especializado</h2>
                 <p>Oferecemos suporte técnico especializado para garantir uma implementação tranquila e eficiente do nosso WebGIS, proporcionando confiança em seu uso</p>
@@ -100,21 +65,20 @@
         </section>
     </div>
     
-    <section class="o-que-e-gis" id="o-que-e-gis">
-        <img src="{% static '/assets/img/o-que-e-gis.png' %}" alt="Imagem GIS">
+    <section class="o-que-e-gis">
         <div>
-            <h2>O QUE É GIS?</h2>
+            <h2>O que é GIS?</h2>
             <p>Um sistema de informação geográfica (GIS) é um sistema que cria, gerencia, analisa e mapeia todos os tipos de dados. 
                 GIS conecta dados a um mapa, integrando dados de localização (onde as coisas estão) com todos os tipos de informações descritivas 
                 (como as coisas são lá). Isso fornece uma base para mapeamento e análise que é usada na ciência e em quase todos os setores. 
                 O GIS ajuda os usuários a entender padrões, relacionamentos e contexto geográfico. Os benefícios incluem melhor comunicação e eficiência, 
                 bem como melhor gestão e tomada de decisões.</p>
         </div>
-        
+        <img src="{% static '/assets/img/o-que-e-gis.png' %}" alt="Imagem GIS">
     </section>
     
 
-    <section class="sobre-nos" id="sobre-nos">
+    <section class="sobre-nos">
         <div>
             <h2>Sobre nós</h2>
             <p>A LocCerta, sediada em Brasília - DF, nasceu com a missão de proporcionar conhecimento e inovação no campo da geografia. Com o nosso poderoso software de WebGIS, você e sua empresa podem explorar novas possibilidades e descobrir insights que jamais imaginaram.
@@ -126,14 +90,8 @@
         <img src="{% static '/assets/img/sobre-nos.png' %}" alt="Imagem GIS">
     </section>
 
-    <footer class="rodape">  
-        <div class="rodape__texto">
-            <p><b>Fale conosco</b></p>
-            <p>loccertadf@gmail.com</p>
-        </div>      
-        <div class="rodape__logo">
-            <img src="{% static '/assets/img/locCerta.png' %}" alt="Logo do WebGIS" />
-        </div>        
+    <footer class="rodape">        
+        <p class="rodape__texto">Projeto Integrador IV - 1/2024 - WebGIS</p>
     </footer>
 </body>
 </html>
