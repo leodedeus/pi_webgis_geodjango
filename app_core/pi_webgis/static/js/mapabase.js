@@ -4,13 +4,13 @@ var coordinicio = [-15.761476545982422, -47.73670621074695];
 var zoominicio = 10;
 map = L.map('map').setView(coordinicio, zoominicio);
 
+L.control.scale().addTo(map);
+
 //Criando mapas base
-var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{}).addTo(map);        
+var streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{});        
 var baserelief = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {});
 var googlesat = L.tileLayer ('https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}',{});
-var osm_nolabel = L.tileLayer.wms('http://ows.mundialis.de/services/service?',{
-        layers: 'OSM-WMS-no-labels'
-    });
+var cartodb = L.tileLayer.wms('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{}).addTo(map);
 var topowms = L.tileLayer.wms('http://ows.mundialis.de/services/service?',{
     layers: 'TOPO-WMS'
 });
@@ -67,7 +67,7 @@ var lagos = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_
 
 //Criação de variaveis para controlar a visualização das camadas
 var basemaps = {
-    'Mapa Básico': osm_nolabel,
+    'Mapa Básico': cartodb,
     'Mapa OpenStreetMap': streetmap,
     'Google Satélite': googlesat,
     'Elevação': topowms,
