@@ -250,7 +250,7 @@ def identificar_feicao(request):
                print('resultado consulta no banco: ',ferrovias)
                # Verifique se encontrou uma ferrovia
                if ferrovias:
-                   geojson_identify_ferrovias = serialize("geojson", [vias], geometry_field="geom", fields=["fclass", "layer", "bridge", "tunnel"])
+                   geojson_identify_ferrovias = serialize("geojson", [ferrovias], geometry_field="geom", fields=["fclass", "layer", "bridge", "tunnel"])
                    print(geojson_identify_ferrovias)
                    # Retorne um HttpResponse com o GeoJSON da feição
                    return HttpResponse(geojson_identify_ferrovias, content_type="application/json")
