@@ -270,7 +270,6 @@ body {
 
 /* BUTTON CONTAINER MAPA */
 
-
 #buttonContainer-mapa {
     display: flex;
     flex-direction: row; /* Alterado para row para organizar horizontalmente */
@@ -280,6 +279,8 @@ body {
 
 #buttonContainer-mapa button {
     position: relative; /* Permitirá posicionamento relativo para o botão */
+    width: 50px;
+    height: 50px;
     font-family: 'Space Grotesk', sans-serif;
     margin-right: 10px;
     text-decoration: none;
