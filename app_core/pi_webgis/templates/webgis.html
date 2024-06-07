@@ -7,13 +7,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocCerta</title>
+    <link rel="icon" href="{% static 'assets/icones/location.png' %}" type="image/x-icon">
     {% leaflet_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos_leaflet_measure.css' %}">
 </head>
 <body>
     
-    <header class="cabecalho">
+    <header class="cabecalho_mapa">
         <div class="cabecalho__logo-container">
             <a href="{% url '' %}" class="cabecalho__link">
                 <img class="cabecalho__logo" src="{% static '/assets/img/locCerta.png' %}" alt="Logo do WebGIS" />
@@ -23,19 +24,23 @@
         <div id="search-container">
             <form id="buscaendereco-form">
                 <input type="text" id="address-input" placeholder="Digite o endereço">
-                <button type="submit">Buscar</button>
+                <button type="submit">BUSCAR</button>
             </form>
         </div>
         <div id="buttonContainer-mapa">
             <button id="btnIdentify">
-                <img id="imgIdentify" src="{% static 'assets/icones/identify.png' %}" alt="Identify">
+                <img id="imgIdentify" src="{% static 'assets/icones/information.png' %}" alt="Identify">
             </button>
+            <button id="btnImpressao">
+                <img id="imgImpressao" src="{% static 'assets/icones/impressao.png' %}" alt="Impressao">
+            </button>
+            
             <button id="btnMedida">
                 <img id="imgMedida" src="{% static 'assets/icones/medida.png' %}" alt="Medida">
             </button>
             <button id="btnLogin">
                 <a href="{% url 'admin:index' %}">
-                    <img id="imgLogin" src="{% static 'assets/icones/login.png' %}" alt="Login">
+                    <img id="imgLogin" src="{% static 'assets/icones/admin.png' %}" alt="Login">
                 </a>
             </button>
         </div>                        
@@ -51,8 +56,14 @@
     <script src="{% static 'widgets/busca_endereco_local.js' %}"></script>
     <script src="{% static 'widgets/exibir_coordenadas_mapa.js' %}"></script>
 
-    <footer class="rodape">        
-        <p class="rodape__texto">Projeto Integrador IV - 1/2024 - WebGIS</p>
+    <footer class="rodape">  
+        <div class="rodape__texto">
+            <p><b>Fale conosco</b></p>
+            <p>loccertadf@gmail.com</p>
+        </div>      
+        <div class="rodape__logo">
+            <img src="{% static '/assets/img/locCerta.png' %}" alt="Logo do WebGIS" />
+        </div>        
     </footer>
     
 </body>

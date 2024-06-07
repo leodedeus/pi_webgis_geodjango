@@ -11,6 +11,10 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
+html{
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
 
 body {
     line-height: 1.6;
@@ -35,6 +39,23 @@ body {
     background-color: #0E2881;
     padding: 30px; /* Adicionei um padding para espaçamento interno */
     font-weight: bold;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box; /* Para incluir o padding na largura total */
+}
+
+.cabecalho_mapa {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    background-color: #0E2881;
+    padding: 15px; /* Adicionei um padding para espaçamento interno */
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box; /* Para incluir o padding na largura total */
 }
 
 .cabecalho__logo-container {
@@ -65,6 +86,7 @@ body {
 
 .coluna-direita {
     justify-content: flex-end;
+    padding-right: 1%;
 }
 
 /* Estilo dos links */
@@ -79,6 +101,12 @@ body {
     padding-bottom: 3px; /* Espaço entre a palavra e o sublinhado */
 }
 
+.coluna-meio a span:hover {
+    border-bottom: 3px solid #FFFFFF; /* Adicionando sublinhado */
+    padding-bottom: 3px; /* Espaço entre a palavra e o sublinhado */
+    transition-duration: 0.5s;
+}
+
 /* Estilo do botão */
 .btnDEMO {
     background-color: #EFA007;
@@ -86,7 +114,7 @@ body {
     padding: 8px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .btnDEMO:hover {
@@ -101,6 +129,7 @@ body {
     width: 100%;
     overflow: hidden; /* Para garantir que não haja rolagem horizontal */
     display: flex;
+    padding-top: 90px;
 }
 
 .banner {
@@ -218,8 +247,8 @@ body {
 
 #buscaendereco-form button {
     padding: 10px 20px;
-    background-color: #7B78E5;
-    color: #FFFFFF;
+    background-color: #EFA007;
+    color: #0E2881;
     border: none;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
@@ -227,44 +256,19 @@ body {
 }
 
 #buscaendereco-form button:hover {
-    background-color: #C98CF1;
-}
-
-#buttonContainer {
-    margin-left: 80vw; /* Empurra a div para a direita o máximo possível */
-    display: flex;
-    flex-direction: row; /* Alterado para row para organizar horizontalmente */
-    align-items: right;
-    padding: 10px;
-}
-
-#buttonContainer button {
-    font-family: 'Space Grotesk', sans-serif;
-    margin-right: 10px;
-    text-decoration: none;
     color: #FFFFFF;
-    font-size: 18px;
-    background-color: #7B78E5; /* Cor de fundo roxa */
-    padding: 10px 20px; /* Adicionado preenchimento aos botões */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Adicionado efeito de transição suave */
-}
-
-#buttonContainer button:hover {
-    background-color: #C98CF1; /* Alterado para um tom mais claro ao passar o mouse */
+    transition-duration: 0.5s;
 }
 
 #btnIdentify.ativo {
     /* Adicione estilos para indicar que a identificação de feição está habilitada */
-    background-color: #2ab385;
+    background-color: #302D2D;
     color: white;
 }
 
 #btnMedida.ativo {
     /* Adicione estilos para indicar que a medida de feição está habilitada */
-    background-color: #2ab385;
+    background-color: #302D2D;
     color: white;
 }
 
@@ -286,7 +290,7 @@ body {
     text-decoration: none;
     color: #FFFFFF;
     font-size: 18px;
-    background-color: #7B78E5; /* Cor de fundo roxa */
+    background-color: #EFA007; /* Cor de fundo roxa */
     padding: 10px 20px; /* Adicionado preenchimento aos botões */
     border: none;
     border-radius: 5px;
@@ -295,7 +299,7 @@ body {
 }
 
 #buttonContainer-mapa button:hover {
-    background-color: #C98CF1; /* Alterado para um tom mais claro ao passar o mouse */
+    background-color: #FFFFFF; /* Alterado para um tom mais claro ao passar o mouse */
 }
 
 #buttonContainer-mapa button img {

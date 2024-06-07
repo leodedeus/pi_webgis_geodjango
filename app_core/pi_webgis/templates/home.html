@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocCerta</title>
+    <link rel="icon" href="{% static 'assets/icones/location.png' %}" type="image/x-icon">
     {% leaflet_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,12 +52,11 @@
                     </div>
                     <div class="input-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required placeholder="exemplo@gmail.com">
+                        <input type="email" id="email" name="email" required placeholder="exemplo@email.com">
                     </div>
                     <div class="input-group">
                         <label for="telefone">Telefone:</label>
-                        <!-- <input type="tel" id="ddd" name="telefone_ddd" maxlength="2" placeholder="DDD" required> -->
-                        <input type="tel" id="telefone" name="telefone_numero" maxlength="9" placeholder="(DDD) X XXXX-XXXX" required>
+                        <input type="tel" id="telefone" name="telefone_numero" maxlength="15"  required>
                     </div>
                     <button class="btnFORM" type="submit">ENVIAR</button>
                 </form>
