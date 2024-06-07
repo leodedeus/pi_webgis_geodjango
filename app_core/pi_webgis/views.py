@@ -128,7 +128,7 @@ def identificar_feicao(request):
        print('entrou no if request.method')
 
        # Decodifique os dados JSON do corpo da solicitação
-       data = json.loads(request.body) #este item foi a alteração que resolver para a view receber os dados do front
+       data = json.loads(request.body) #este item foi a alteração que resolveu para a view receber os dados do front
        print(data)
 
        lat = float(data.get('lat'))
