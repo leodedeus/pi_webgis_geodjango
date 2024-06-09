@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocCerta</title>
     <link rel="icon" href="{% static 'assets/icones/location.png' %}" type="image/x-icon">
+    <!-- CSS do Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     {% leaflet_css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos_leaflet_measure.css' %}">
@@ -32,6 +34,9 @@
             <button id="btnIdentify">
                 <img id="imgIdentify" src="{% static 'assets/icones/information.png' %}" alt="Identify">
             </button>
+            <button id="btnTableFeatures">
+                <img id="imgIdentify" src="{% static 'assets/icones/table.png' %}" alt="Identify">
+            </button>
             <button id="btnBuffer">
                 <img id="imgBuffer" src="{% static 'assets/icones/buffer.png' %}" alt="Buffer">
             </button>
@@ -50,6 +55,23 @@
     </header>
     
     <div id="map"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="tabelaAtributosModal" tabindex="-1" aria-labelledby="tabelaAtributosModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tabelaAtributosModalLabel">Tabela de Atributos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="tabelaAtributosContainer"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {% leaflet_js %}
     <script src="{% static 'widgets/ferramenta_leaflet_measure.js' %}"></script>
@@ -60,7 +82,11 @@
     <script src="{% static 'widgets/exibir_coordenadas_mapa.js' %}"></script>
     <script src="{% static 'widgets/criar_buffer.js' %}"></script>
     <script src="{% static 'widgets/controle_criar_buffer.js' %}"></script>
+    <script src="{% static 'widgets/abrir_tabela_atributos.js' %}"></script>
 
+    <!-- JavaScript do Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    
     <footer class="rodape">  
         <div class="rodape__texto">
             <p><b>Fale conosco</b></p>

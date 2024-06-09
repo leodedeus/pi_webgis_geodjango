@@ -281,3 +281,203 @@ def identificar_feicao(request):
           
    else:
        return JsonResponse({'error': 'Método não permitido'})
+
+def abrir_tabela_atributos(request):
+   if request.method == 'POST':
+       print('entrou no if request.method')
+
+       try:
+           data = json.loads(request.body)
+           print('Dados recebidos:', data)
+
+           nomeCamada = data.get('nomeCamada')
+           print('Nome da camada recebida:', nomeCamada)
+
+           if nomeCamada == 'Regiões Administrativas':
+               print('camada consultada no banco: ', nomeCamada)
+               regioes_administrativas = Regiaoadministrativa.objects.all()
+               json_tb_regioes_administrativas = serialize("json", regioes_administrativas, fields=["ra_cira", "ra_nome", "ra_codigo"])
+               print(json_tb_regioes_administrativas)
+               return HttpResponse(json_tb_regioes_administrativas, content_type="application/json")
+           
+           elif nomeCamada == 'Lotes':
+               print('camada consultada no banco: ', nomeCamada)
+               lote_existente = Loteexistente.objects.all()
+               json_identify_lote = serialize("json", lote_existente, fields=["ct_ciu", "lt_enderec", "lt_cep", "ac_area_ct", "ct_origem"])
+               print(json_identify_lote)
+               return HttpResponse(json_identify_lote, content_type="application/json")
+           
+           elif nomeCamada == 'Lago/Lagoas':
+               print('camada consultada no banco: ', nomeCamada)
+               lago_lagoas = Lagoslagoas.objects.all()
+               json_identify_lago = serialize("json", lago_lagoas, fields=["name", "fclass"])
+               print(json_identify_lago)
+               return HttpResponse(json_identify_lago, content_type="application/json")
+           
+           elif nomeCamada == 'Escolas':
+               print('camada consultada no banco: ', nomeCamada)
+               escolas = Escolaspublicas.objects.all()
+               json_identify_escola = serialize("json", escolas, fields=["cod_entidade", "nome_escola", "endereco", "cep", "telefone"])
+               print(json_identify_escola)
+               return HttpResponse(json_identify_escola, content_type="application/json")
+           
+           elif nomeCamada == 'Sistema Viário':
+               print('camada consultada no banco: ', nomeCamada)
+               vias = Sistemaviario.objects.all()
+               json_identify_vias = serialize("json", vias, fields=["fclass", "name", "oneway", "maxspeed", "layer", "bridge", "tunnel"])
+               print(json_identify_vias)
+               return HttpResponse(json_identify_vias, content_type="application/json")
+           
+           elif nomeCamada == 'Sistema Ferroviário':
+               print('camada consultada no banco: ', nomeCamada)
+               ferrovias = Sistemaferroviario.objects.all()
+               json_identify_ferrovias = serialize("json", ferrovias, fields=["fclass", "layer", "bridge", "tunnel"])
+               print(json_identify_ferrovias)
+               return HttpResponse(json_identify_ferrovias, content_type="application/json")
+           
+           elif nomeCamada == 'Hidrografia':
+               print('camada consultada no banco: ', nomeCamada)
+               hidrografia = Hidrografia.objects.all()
+               json_identify_hidrografia = serialize("json", hidrografia, fields=["fclass", "width", "name"])
+               print(json_identify_hidrografia)
+               return HttpResponse(json_identify_hidrografia, content_type="application/json")
+           
+           else:
+               return JsonResponse({'error': 'Nome da camada não corresponde a nenhuma camada conhecida'})
+
+       except json.JSONDecodeError:
+           return JsonResponse({'error': 'Erro ao decodificar JSON'})
+       except Exception as e:
+           return JsonResponse({'error': str(e)})
+   else:
+       return JsonResponse({'error': 'Método não permitido'})
+
+'''
+def abrir_tabela_atributos(request):
+   if request.method == 'POST':
+       print('entrou no if request.method')
+
+       # Decodifique os dados JSON do corpo da solicitação
+       data = json.loads(request.body) #este item foi a alteração que resolveu para a view receber os dados do front
+       print(data)
+
+       nomeCamada = data.get('nomeCamada')
+       print(nomeCamada)
+
+       if nomeCamada == 'Regiões Administrativas':
+           print('camada consultada no banco: ', nomeCamada)
+           # Realize a consulta espacial para encontrar a região administrativa que intersecta com o ponto clicado
+           try:
+                # Consulta todos os registros de Regiões Administrativas
+                regioes_administrativas = Regiaoadministrativa.objects.all()
+
+                # Serialize os registros para GeoJSON
+                geojson_tb_regioes_administrativas = serialize("geojson", regioes_administrativas, geometry_field="geom", fields=["ra_cira", "ra_nome", "ra_codigo"])
+                print(geojson_tb_regioes_administrativas)
+
+                # Retorna os registros como JSON
+                return HttpResponse(geojson_tb_regioes_administrativas, content_type="application/json")
+           
+           except Exception as e:
+                return JsonResponse({'error': str(e)})
+           
+       elif nomeCamada == 'Lotes':
+           print('camada consultada no banco: ', nomeCamada)
+           # Realize a consulta para encontrar todos os registros da camada lotes
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               lote_existente = Loteexistente.objects.all()
+               print('resultado consulta no banco: ', lote_existente)
+               
+               geojson_identify_lote = serialize("geojson", lote_existente, geometry_field="geom", fields=["ct_ciu", "lt_enderec", "lt_cep", "ac_area_ct", "ct_origem"])
+               print(geojson_identify_lote)
+               
+               # Retorne um HttpResponse com o GeoJSON
+               return HttpResponse(geojson_identify_lote, content_type="application/json")
+           
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+          
+       elif nomeCamada == 'Lago/Lagoas':
+           print('camada consultada no banco: ', nomeCamada)
+           # Realize a consulta para retornar todos os registros da camada lago/lagoas
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               lago_lagoas = Lagoslagoas.objects.all()
+               print('resultado consulta no banco: ', lago_lagoas)
+               
+               geojson_identify_lago = serialize("geojson", lago_lagoas, geometry_field="geom", fields=["name", "fclass"])
+               print(geojson_identify_lago)
+               
+               return HttpResponse(geojson_identify_lago, content_type="application/json")
+           
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+        
+       elif nomeCamada == 'Escolas':
+           print('camada consultada no banco: ', nomeCamada)
+           # Realize a consulta para retornar todos os registros da camada escolas
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               escolas = Escolaspublicas.objects.all()
+               print('resultado consulta no banco: ',escolas)
+               
+               geojson_identify_escola = serialize("geojson", escolas, geometry_field="geom", fields=["cod_entidade", "nome_escola", "endereco", "cep", "telefone"])
+               print(geojson_identify_escola)
+               
+               return HttpResponse(geojson_identify_escola, content_type="application/json")
+           
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+        
+       elif nomeCamada == 'Sistema Viário':
+           print('camada consultada no banco: ', nomeCamada)
+           # Realize a consulta para retornar registros da camada sistema viário
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               vias = Sistemaviario.objects.all()
+               print('resultado consulta no banco: ',vias)
+               
+               geojson_identify_vias = serialize("geojson", vias, geometry_field="geom", fields=["fclass", "name", "oneway", "maxspeed", "layer", "bridge", "tunnel"])
+               print(geojson_identify_vias)
+               
+               return HttpResponse(geojson_identify_vias, content_type="application/json")
+           
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+           
+       elif nomeCamada == 'Sistema Ferroviário':
+           print('camada consultada no banco: ', nomeCamada)
+           # Realize a consulta para retornar registros da camada sistema ferroviário
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               ferrovias = Sistemaferroviario.objects.all()
+               print('resultado consulta no banco: ',ferrovias)
+               
+               geojson_identify_ferrovias = serialize("geojson", ferrovias, geometry_field="geom", fields=["fclass", "layer", "bridge", "tunnel"])
+               print(geojson_identify_ferrovias)
+               
+               return HttpResponse(geojson_identify_ferrovias, content_type="application/json")
+           
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+        
+       elif nomeCamada == 'Hidrografia':
+           print('camada consultada no banco: ', nomeCamada)
+           # Realize a consulta para retornar registros da camada hidrografia
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               hidrografia = Hidrografia.objects.all()
+               print('resultado consulta no banco: ',hidrografia)
+               
+               geojson_identify_hidrografia = serialize("geojson", hidrografia, geometry_field="geom", fields=["fclass", "width", "name"])
+               print(geojson_identify_hidrografia)
+               
+               return HttpResponse(geojson_identify_hidrografia, content_type="application/json")
+           
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
+          
+   else:
+       return JsonResponse({'error': 'Método não permitido'})
+'''
