@@ -29,7 +29,7 @@
 
     L.Control.Measure = L.Control.extend({
         options: {
-            //position: "bottomright",
+            position: "topright",
             title: "Ferramenta de Medida",
             collapsed: false,
             color: "#FF0080",

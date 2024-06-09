@@ -83,11 +83,11 @@
 }
 
 
-/*Posiciona o controlador de medida a 5cm da borda direita da tela*/
+/*Posiciona o controlador de medida a 5cm da borda direita da tela
 .custom-measure-control {
     position: fixed;
-    top: 130px; /* Ajuste conforme necessário */
+    top: 130px; /* Ajuste conforme necessário 
     right: 190px;
-    z-index: 1000; /* Certifique-se de que o controlador esteja acima de outros elementos*/
+    z-index: 1000; /* Certifique-se de que o controlador esteja acima de outros elementos
  }
- 
+ */

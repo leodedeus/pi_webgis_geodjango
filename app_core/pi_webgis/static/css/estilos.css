@@ -262,13 +262,19 @@ body {
 
 #btnIdentify.ativo {
     /* Adicione estilos para indicar que a identificação de feição está habilitada */
-    background-color: #302D2D;
+    background-color: #0fb138;
     color: white;
 }
 
 #btnMedida.ativo {
     /* Adicione estilos para indicar que a medida de feição está habilitada */
-    background-color: #302D2D;
+    background-color: #0fb138;
+    color: white;
+}
+
+#btnBuffer.ativo {
+    /* Adicione estilos para indicar que a medida de feição está habilitada */
+    background-color: #0fb138;
     color: white;
 }
 

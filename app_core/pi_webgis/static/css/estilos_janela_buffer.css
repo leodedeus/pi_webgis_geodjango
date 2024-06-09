@@ -1,0 +1,44 @@
+.leaflet-control-custom {
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+#buffer-controls label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#buffer-controls input, #buffer-controls select, #buffer-controls button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: white;  /* Fundo branco para input e select */
+    border: 1px solid #ccc;  /* Borda para input e select */
+    border-radius: 4px;  /* Bordas arredondadas para input e select */
+}
+
+#buffer-controls button {
+    background-color: #557291;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;  /* Bordas arredondadas para os botões */
+}
+
+#buffer-controls button:hover {
+    background-color: #0056b3;
+}
+
+#buffer-controls button:active,
+#buffer-controls button.active {
+    background-color: #004494;
+}
+
