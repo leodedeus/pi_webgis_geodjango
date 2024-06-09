@@ -296,49 +296,49 @@ def abrir_tabela_atributos(request):
            if nomeCamada == 'Regiões Administrativas':
                print('camada consultada no banco: ', nomeCamada)
                regioes_administrativas = Regiaoadministrativa.objects.all()
-               json_tb_regioes_administrativas = serialize("json", regioes_administrativas, fields=["ra_cira", "ra_nome", "ra_codigo"])
+               json_tb_regioes_administrativas = serialize("json", regioes_administrativas, fields=["id", "ra_cira", "ra_nome", "ra_codigo"])
                print(json_tb_regioes_administrativas)
                return HttpResponse(json_tb_regioes_administrativas, content_type="application/json")
            
            elif nomeCamada == 'Lotes':
                print('camada consultada no banco: ', nomeCamada)
                lote_existente = Loteexistente.objects.all()
-               json_identify_lote = serialize("json", lote_existente, fields=["ct_ciu", "lt_enderec", "lt_cep", "ac_area_ct", "ct_origem"])
+               json_identify_lote = serialize("json", lote_existente, fields=["id", "ct_ciu", "lt_enderec", "lt_cep", "ac_area_ct", "ct_origem"])
                print(json_identify_lote)
                return HttpResponse(json_identify_lote, content_type="application/json")
            
            elif nomeCamada == 'Lago/Lagoas':
                print('camada consultada no banco: ', nomeCamada)
                lago_lagoas = Lagoslagoas.objects.all()
-               json_identify_lago = serialize("json", lago_lagoas, fields=["name", "fclass"])
+               json_identify_lago = serialize("json", lago_lagoas, fields=["id", "name", "fclass"])
                print(json_identify_lago)
                return HttpResponse(json_identify_lago, content_type="application/json")
            
            elif nomeCamada == 'Escolas':
                print('camada consultada no banco: ', nomeCamada)
                escolas = Escolaspublicas.objects.all()
-               json_identify_escola = serialize("json", escolas, fields=["cod_entidade", "nome_escola", "endereco", "cep", "telefone"])
+               json_identify_escola = serialize("json", escolas, fields=["id", "cod_entidade", "nome_escola", "endereco", "cep", "telefone"])
                print(json_identify_escola)
                return HttpResponse(json_identify_escola, content_type="application/json")
            
            elif nomeCamada == 'Sistema Viário':
                print('camada consultada no banco: ', nomeCamada)
                vias = Sistemaviario.objects.all()
-               json_identify_vias = serialize("json", vias, fields=["fclass", "name", "oneway", "maxspeed", "layer", "bridge", "tunnel"])
+               json_identify_vias = serialize("json", vias, fields=["id", "fclass", "name", "oneway", "maxspeed", "layer", "bridge", "tunnel"])
                print(json_identify_vias)
                return HttpResponse(json_identify_vias, content_type="application/json")
            
            elif nomeCamada == 'Sistema Ferroviário':
                print('camada consultada no banco: ', nomeCamada)
                ferrovias = Sistemaferroviario.objects.all()
-               json_identify_ferrovias = serialize("json", ferrovias, fields=["fclass", "layer", "bridge", "tunnel"])
+               json_identify_ferrovias = serialize("json", ferrovias, fields=["id", "fclass", "layer", "bridge", "tunnel"])
                print(json_identify_ferrovias)
                return HttpResponse(json_identify_ferrovias, content_type="application/json")
            
            elif nomeCamada == 'Hidrografia':
                print('camada consultada no banco: ', nomeCamada)
                hidrografia = Hidrografia.objects.all()
-               json_identify_hidrografia = serialize("json", hidrografia, fields=["fclass", "width", "name"])
+               json_identify_hidrografia = serialize("json", hidrografia, fields=["id", "fclass", "width", "name"])
                print(json_identify_hidrografia)
                return HttpResponse(json_identify_hidrografia, content_type="application/json")
            

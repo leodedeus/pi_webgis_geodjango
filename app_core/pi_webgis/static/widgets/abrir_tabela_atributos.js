@@ -25,13 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Função para verificar as camadas ativadas
     function verificarCamadasAtivadas() {
-        // Implemente aqui a lógica para verificar as camadas ativadas
-        const camadasAtivadas = []; // Suponha que você tenha uma lista de camadas ativadas
+        const camadasAtivadas = [];
         
-        // Verificar todas as camadas e capturar informações das camadas ativadas
         for (var layerName in camadas) {
             if (map.hasLayer(camadas[layerName])) {
-                // Adicionar o nome da camada ativada ao array
                 camadasAtivadas.push(layerName);
             }
         }
@@ -49,62 +46,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (camadasAtivadas.length === 1) {
             console.log('Camada ativada:', camadasAtivadas[0]);
-            var nome_camada = camadasAtivadas[0]
-
-            // Enviar os dados para a view Django usando fetch
-            console.log('Dados enviados na solicitação:', JSON.stringify({
-            nomeCamada: nome_camada
-            }));
-
-            return nome_camada;
-
+            return camadasAtivadas[0];
         }
     }
 
     // Função para processar o clique no botão
-    function processButtonClick() { 
-        console.log('Entrou na função processButtonClick');  // Log adicional
+    function processButtonClick() {
+        console.log('Entrou na função processButtonClick');
         const nome_camada = verificarCamadasAtivadas();
-        console.log('Nome da camada dentro da função click do botao:', nome_camada);  // Log adicional
-        if (!nome_camada) { // verifica se o nome da camada não é falso, se for falso a execução é interrompida
+        console.log('Nome da camada dentro da função click do botão:', nome_camada);
+        if (!nome_camada) {
             return;
         }
-        
-        // Enviar os dados para a view Django usando fetch
+
         fetchCSRFToken().then(csrfToken => {
-            // Enviar os dados para a view Django usando fetch
             fetch('/abrir_tabela_atributos/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken
                 },
-                body: JSON.stringify({
-                    nomeCamada: nome_camada
-                })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na solicitação AJAX');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Resposta do servidor:', data);
+                body: JSON.stringify({ nomeCamada: nome_camada })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na solicitação AJAX');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Resposta do servidor:', data);
 
-                    // Verifique se há um erro retornado pelo servidor
-                    if (data.error) {
-                        // Se houver um erro, exiba-o para o usuário
-                        alert(data.error); // Você pode usar uma caixa de diálogo ou um elemento na interface para exibir a mensagem de erro
-                        return; // Pare a execução da função aqui para evitar erros adicionais
-                    }
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
 
-                    // Se não houver erro, exibir os dados da tabela de atributos
-                    exibirTabelaAtributos(data);
-                })
-                .catch(error => {
-                    console.error('Erro na solicitação AJAX:', error);
-                });
+                exibirTabelaAtributos(data);
+            })
+            .catch(error => {
+                console.error('Erro na solicitação AJAX:', error);
+            });
         });
     }
 
@@ -112,22 +94,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function exibirTabelaAtributos(data) {
         const container = document.getElementById('tabelaAtributosContainer');
         
-        // Limpar o conteúdo anterior
         container.innerHTML = '';
-    
-        // Criar a tabela
+
         const table = document.createElement('table');
-        table.className = 'table table-striped'; // Adiciona classes Bootstrap para estilização (se desejado)
-    
-        // Criar o cabeçalho da tabela
+        table.className = 'table table-striped';
+
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
-        
-        // Assumindo que a estrutura do data é uma lista de objetos
-        const firstItem = data[0];
-        const fields = Object.keys(firstItem.fields);
-        fields.push('geometry'); // Adiciona a geometria como campo, se necessário
-    
+
+        const fields = Object.keys(data[0].fields);
+        fields.unshift('id'); // Adiciona o campo 'id' no início
+
         fields.forEach(field => {
             const th = document.createElement('th');
             th.textContent = field;
@@ -135,35 +112,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         thead.appendChild(headerRow);
         table.appendChild(thead);
-    
-        // Criar o corpo da tabela
+
         const tbody = document.createElement('tbody');
-    
+
         data.forEach(item => {
             const row = document.createElement('tr');
             
             fields.forEach(field => {
                 const td = document.createElement('td');
-                if (field === 'geometry') {
-                    td.textContent = JSON.stringify(item[field]);
+                if (field === 'id') {
+                    td.textContent = item.pk; // Adiciona o valor do campo 'id'
                 } else {
                     td.textContent = item.fields[field];
                 }
                 row.appendChild(td);
             });
-    
+
             tbody.appendChild(row);
         });
-    
+
         table.appendChild(tbody);
         container.appendChild(table);
 
-        // Exibir o modal
         var tabelaAtributosModal = new bootstrap.Modal(document.getElementById('tabelaAtributosModal'));
         tabelaAtributosModal.show();
     }
     
-    // Adicionar um ouvinte de eventos para o clique no botão
     btnTabelaAtributos.addEventListener('click', function () {
         console.log('Botão btnTableFeatures ativado')
         clickHabilitado = !clickHabilitado;
@@ -175,4 +149,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
 
