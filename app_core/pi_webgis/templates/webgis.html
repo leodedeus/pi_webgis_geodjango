@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos_leaflet_measure.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos_janela_buffer.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-easyPrint/2.1.9/leaflet.easyPrint.css" />
 </head>
 <body>
     
@@ -74,6 +75,7 @@
     </div>
 
     {% leaflet_js %}
+    <script src="{% static 'widgets/bundle.js' %}"></script> <!-- Adicionado -->
     <script src="{% static 'widgets/ferramenta_leaflet_measure.js' %}"></script>
     <script src="{% static 'widgets/controle_ferramenta_medida.js' %}"></script>
     <script src="{% static 'js/mapabase.js' %}"></script>
@@ -87,7 +89,7 @@
     <!-- JavaScript do Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     
-    <footer class="rodape">  
+    <footer class="rodape_mapa">  
         <div class="rodape__texto">
             <p><b>Fale conosco</b></p>
             <p>loccertadf@gmail.com</p>
