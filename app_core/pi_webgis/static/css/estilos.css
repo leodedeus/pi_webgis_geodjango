@@ -262,19 +262,19 @@ body {
 
 #btnIdentify.ativo {
     /* Adicione estilos para indicar que a identificação de feição está habilitada */
-    background-color: #0fb138;
+    background-color: #4ac568;
     color: white;
 }
 
 #btnMedida.ativo {
     /* Adicione estilos para indicar que a medida de feição está habilitada */
-    background-color: #0fb138;
+    background-color: #4ac568;
     color: white;
 }
 
 #btnBuffer.ativo {
     /* Adicione estilos para indicar que a medida de feição está habilitada */
-    background-color: #0fb138;
+    background-color: #4ac568;
     color: white;
 }
 
@@ -305,7 +305,7 @@ body {
 }
 
 #buttonContainer-mapa button:hover {
-    background-color: #FFFFFF; /* Alterado para um tom mais claro ao passar o mouse */
+    background-color: #4ac568; /* Alterado para um tom mais claro ao passar o mouse */
 }
 
 #buttonContainer-mapa button img {
@@ -458,6 +458,16 @@ body {
     background-color: #302D2D;
     color: #ffffff;
     padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between; /* Distribui os itens igualmente ao longo do eixo principal */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+}
+
+.rodape_mapa {
+    background-color: #302D2D;
+    color: #ffffff;
+    padding-top: 10px;
     text-align: center;
     display: flex;
     justify-content: space-between; /* Distribui os itens igualmente ao longo do eixo principal */

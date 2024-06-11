@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
     const btnTabelaAtributos = document.getElementById('btnTableFeatures');
-    let clickHabilitado = false;
 
     // Função para obter o token CSRF do servidor
     function fetchCSRFToken() {
@@ -82,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
 
-                exibirTabelaAtributos(data);
+                exibirTabelaAtributos(data, nome_camada);
             })
             .catch(error => {
                 console.error('Erro na solicitação AJAX:', error);
@@ -91,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Função para exibir os dados da tabela de atributos em uma tabela HTML
-    function exibirTabelaAtributos(data) {
+    function exibirTabelaAtributos(data, nomeCamada) {
         const container = document.getElementById('tabelaAtributosContainer');
         
         container.innerHTML = '';
@@ -134,10 +133,19 @@ document.addEventListener('DOMContentLoaded', function () {
         table.appendChild(tbody);
         container.appendChild(table);
 
-        var tabelaAtributosModal = new bootstrap.Modal(document.getElementById('tabelaAtributosModal'));
+        const tabelaAtributosModal = new bootstrap.Modal(document.getElementById('tabelaAtributosModal'));
+        
+        // Atualiza o título do modal com o nome da camada
+        const modalTitle = document.getElementById('tabelaAtributosModalLabel');
+        modalTitle.textContent = `Tabela de Atributos: ${nomeCamada}`;
+        
         tabelaAtributosModal.show();
     }
-    
+        
+    btnTabelaAtributos.addEventListener('click', function () {
+        console.log('Botão btnTableFeatures ativado');
+        processButtonClick();
+    /*    
     btnTabelaAtributos.addEventListener('click', function () {
         console.log('Botão btnTableFeatures ativado')
         clickHabilitado = !clickHabilitado;
@@ -147,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Chamando função processButtonClick')
             processButtonClick();
         }
+    */
     });
 });
 
