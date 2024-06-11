@@ -464,6 +464,16 @@ body {
     align-items: center; /* Alinha os itens verticalmente ao centro */
 }
 
+.rodape_mapa {
+    background-color: #302D2D;
+    color: #ffffff;
+    padding-top: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between; /* Distribui os itens igualmente ao longo do eixo principal */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+}
+
 .rodape__texto {
     font-size: 20px;
     text-align: left;
@@ -492,3 +502,5 @@ body {
     max-height: 500px;
     overflow-y: auto;
 }
+
+
