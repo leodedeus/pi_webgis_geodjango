@@ -262,19 +262,19 @@ body {
 
 #btnIdentify.ativo {
     /* Adicione estilos para indicar que a identificação de feição está habilitada */
-    background-color: #0fb138;
+    background-color: #4ac568;
     color: white;
 }
 
 #btnMedida.ativo {
     /* Adicione estilos para indicar que a medida de feição está habilitada */
-    background-color: #0fb138;
+    background-color: #4ac568;
     color: white;
 }
 
 #btnBuffer.ativo {
     /* Adicione estilos para indicar que a medida de feição está habilitada */
-    background-color: #0fb138;
+    background-color: #4ac568;
     color: white;
 }
 
@@ -305,7 +305,7 @@ body {
 }
 
 #buttonContainer-mapa button:hover {
-    background-color: #FFFFFF; /* Alterado para um tom mais claro ao passar o mouse */
+    background-color: #4ac568; /* Alterado para um tom mais claro ao passar o mouse */
 }
 
 #buttonContainer-mapa button img {
@@ -502,5 +502,3 @@ body {
     max-height: 500px;
     overflow-y: auto;
 }
-
-
