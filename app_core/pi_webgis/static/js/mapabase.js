@@ -16,49 +16,49 @@ var topowms = L.tileLayer.wms('http://ows.mundialis.de/services/service?',{
 });
 
 //Criaçao das camadas do banco de dados
-var lotes = L.tileLayer.wms('http://3.22.70.205:8080/geoserver/workspace_piwebgis_container/wms',{
+var lotes = L.tileLayer.wms('http://18.116.8.21:8080/geoserver/workspace_piwebgis_container/wms',{
             layers: 'workspace_piwebgis_container:feature_polygon_lote_existente',
             format: 'image/png',
             transparent: true,
             opacity: 0.7
         })//.addTo(map)
 
-var escolas = L.tileLayer.wms('http://3.22.70.205:8080/geoserver/workspace_piwebgis_container/wms',{
+var escolas = L.tileLayer.wms('http://18.116.8.21:8080/geoserver/workspace_piwebgis_container/wms',{
             layers: 'workspace_piwebgis_container:feature_point_escola_publica',
             format: 'image/png',
             transparent: true,
             //opacity: 1.0
         });//.addTo(map)
 
-var ras = L.tileLayer.wms('http://3.22.70.205:8080/geoserver/workspace_piwebgis_container/wms',{
+var ras = L.tileLayer.wms('http://18.116.8.21:8080/geoserver/workspace_piwebgis_container/wms',{
             layers: 'workspace_piwebgis_container:feature_polygon_regioes_administrativas',
             format: 'image/png',
             transparent: true,
             //opacity: 1.0
         });//.addTo(map)
 
-var rios = L.tileLayer.wms('http://3.22.70.205:8080/geoserver/workspace_piwebgis_container/wms',{
+var rios = L.tileLayer.wms('http://18.116.8.21:8080/geoserver/workspace_piwebgis_container/wms',{
             layers: 'workspace_piwebgis_container:feature_line_hidrografia',
             format: 'image/png',
             transparent: true,
             //opacity: 1.0
         });//.addTo(map)
 
-var vias = L.tileLayer.wms('http://3.22.70.205:8080/geoserver/workspace_piwebgis_container/wms',{
+var vias = L.tileLayer.wms('http://18.116.8.21:8080/geoserver/workspace_piwebgis_container/wms',{
             layers: 'workspace_piwebgis_container:feature_line_sistema_viario',
             format: 'image/png',
             transparent: true,
             //opacity: 1.0
         });//.addTo(map)
 
-var ferrovias = L.tileLayer.wms('http://3.22.70.205:8080/geoserver/workspace_piwebgis_container/wms',{
+var ferrovias = L.tileLayer.wms('http://18.116.8.21:8080/geoserver/workspace_piwebgis_container/wms',{
             layers: 'workspace_piwebgis_container:feature_line_sistema_ferroviario',
             format: 'image/png',
             transparent: true,
             //opacity: 1.0
         });//.addTo(map)
 
-var lagos = L.tileLayer.wms('http://3.22.70.205:8080/geoserver/workspace_piwebgis_container/wms',{
+var lagos = L.tileLayer.wms('http://18.116.8.21:8080/geoserver/workspace_piwebgis_container/wms',{
             layers: 'workspace_piwebgis_container:feature_polygon_lagos_lagoas',
             format: 'image/png',
             transparent: true,
