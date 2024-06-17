@@ -101,3 +101,27 @@ class Sistemaferroviario(models.Model):
     class Meta:
         managed = False
         db_table = '"camadas"."feature_line_sistema_ferroviario"'
+
+class TipoSolicitacao(models.Model):
+    #id = models.AutoField(primary_key=True)
+    numsolicitacao = models.IntegerField()
+    tiposolicitacao = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False # True para que o django gerencie esta tabela, ou seja, o django crie esta tabela
+        db_table = '"dominios"."dom_tipo_solicitacao"'
+
+    def __str__(self):
+        return self.tiposolicitacao
+
+class SolicitacaoPopulacao(models.Model):
+    #id = models.AutoField(primary_key=True)
+    geom = models.PointField(srid=31983, blank=True, null=True)
+    tiposolicitacao = models.ForeignKey(TipoSolicitacao, on_delete=models.PROTECT, related_name="tipo_solicitacao",  db_column='tiposolicitacao')
+    nomesolicitante = models.CharField(max_length=200)
+    emailsolicitante = models.CharField(max_length=100)
+    fonesolicitante = models.CharField(max_length=11)
+
+    class Meta:
+        managed = False
+        db_table = '"camadas"."feature_point_solicitacao_populacao"'

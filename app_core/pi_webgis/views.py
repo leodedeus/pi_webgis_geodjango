@@ -10,7 +10,7 @@ from django.contrib.gis.geos import Point
 #from django.contrib.gis.db.models.functions import Transform
 #from django.contrib.gis.serializers import GeoJSONSerializer
 #from django.contrib.gis.geos import GEOSGeometry
-from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas, Sistemaviario, Sistemaferroviario, Hidrografia
+from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas, Sistemaviario, Sistemaferroviario, Hidrografia, TipoSolicitacao
 
 # Create your views here.
 def get_csrf_token(request):
@@ -351,6 +351,11 @@ def abrir_tabela_atributos(request):
            return JsonResponse({'error': str(e)})
    else:
        return JsonResponse({'error': 'Método não permitido'})
+
+def cadastra_solicitacao(request):
+    tiposolicitacoes = TipoSolicitacao.objects.all()
+    return render(request, 'webgis.html', {'tiposolicitacoes': tiposolicitacoes})
+
 
 '''
 def abrir_tabela_atributos(request):
