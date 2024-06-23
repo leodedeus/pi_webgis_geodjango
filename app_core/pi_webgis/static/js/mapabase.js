@@ -65,6 +65,13 @@ var lagos = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_
             //opacity: 1.0
         });//.addTo(map)
 
+var solicitacoes = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_container/wms',{
+            layers: 'workspace_piwebgis_container:feature_point_solicitacao_populacao',
+            format: 'image/png',
+            transparent: true,
+            //opacity: 1.0
+        });//.addTo(map)
+
 //Criação de variaveis para controlar a visualização das camadas
 var basemaps = {
     'Mapa Básico': cartodb,
@@ -81,10 +88,16 @@ var camadas = {
     'Sistema Viário':vias,
     'Sistema Ferroviário': ferrovias,
     'Hidrografia': rios,
-    'Lago/Lagoas': lagos
+    'Lago/Lagoas': lagos,
+    'Solicitações': solicitacoes
     }
 
-var controlLayers = L.control.layers(basemaps,camadas,{collapsed: false}).addTo(map);
+//var camadasInstitucionais = {
+//    'Solicitações': solicitacoes
+//    }
+
+//var controlLayers = L.control.layers(basemaps,camadas,camadasInstitucionais,{collapsed: false}).addTo(map);
+var controlLayers = L.control.layers(basemaps, camadas, { collapsed: false }).addTo(map);
 
 // Função para ajustar a ordem das camadas quando uma sobreposição é adicionada
 function ajustarOrdemCamadas() {

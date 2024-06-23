@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             if (response.ok) {
                                 console.log('Solicitação enviada com sucesso');
                                 $('#solicitacaoModal').modal('hide');
+                                alert('Solicitação cadastrada com sucesso.'); // Exibe alerta de sucesso
                                 location.reload();  // Recarregar a página para atualizar o mapa
                             } else {
                                 console.error('Erro ao enviar solicitação:', response.statusText);
@@ -109,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
 
 
 

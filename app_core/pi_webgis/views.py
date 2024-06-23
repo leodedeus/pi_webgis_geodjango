@@ -280,7 +280,26 @@ def identificar_feicao(request):
                    return JsonResponse({'error': 'Nenhuma hidrografia encontrada para as coordenadas fornecidas'})
            except Exception as e:
                return JsonResponse({'error': str(e)})
-          
+       
+       elif nomeCamada == 'Solicitações':
+           print('camada consultada no banco: ', nomeCamada)
+           ponto_buffer = ponto_clicado.buffer(10)#10 significa a distancia em unidades do sistema de coordenadas
+           print('buffer gerado')
+           # Realize a consulta espacial para encontrar a escola mais próximo ao ponto clicado
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               solicitacoes = SolicitacaoPopulacao.objects.filter(geom__intersects=ponto_buffer).first()
+               print('resultado consulta no banco: ',solicitacoes)
+               # Verifique se encontrou uma escola
+               if solicitacoes:
+                   geojson_identify_solicitacao = serialize("geojson", [solicitacoes], geometry_field="geom", fields=["tiposolicitacao", "nomesolicitante", "emailsolicitante", "fonesolicitante"])
+                   print(geojson_identify_solicitacao)
+                   # Retorne um HttpResponse com o GeoJSON da feição
+                   return HttpResponse(geojson_identify_solicitacao, content_type="application/json")
+               else:
+                   return JsonResponse({'error': 'Nenhuma solicitacao encontrada para as coordenadas fornecidas'})
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
    else:
        return JsonResponse({'error': 'Método não permitido'})
 
@@ -392,13 +411,13 @@ def cadastra_solicitacao(request):
                 # Atribuir o ponto transformado ao campo geom
                 solicitacao.geom = ponto_clicado
 
-                # Salvando no banco de dados
-                solicitacao.save()
+            # Salvando no banco de dados
+            solicitacao.save()
 
-                # Mensagem de sucesso
-                messages.success(request, 'Solicitação cadastrada com sucesso.')
+            # Mensagem de sucesso
+            messages.success(request, 'Solicitação cadastrada com sucesso.')
 
-                return redirect('url_webgis')  # Redirecionar para a página inicial após o cadastro
+            return redirect('url_webgis')  # Redirecionar para a página inicial após o cadastro
         else:
             print("Formulário inválido:", form.errors)
     else:

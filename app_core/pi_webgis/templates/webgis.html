@@ -19,18 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-easyPrint/2.1.9/leaflet.easyPrint.css" />
 </head>
 <body>
-    
-    <div class="container mt-4">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-    
+
     <header class="cabecalho_mapa">
         <div class="cabecalho__logo-container">
             <a href="{% url '' %}" class="cabecalho__link">
