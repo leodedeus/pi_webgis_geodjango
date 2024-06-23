@@ -124,7 +124,7 @@ class SolicitacaoPopulacao(models.Model):
 
     def __str__(self):
         return f"Solicitação {self.id}"
-    
+       
     class Meta:
         managed = False
         db_table = '"camadas"."feature_point_solicitacao_populacao"'

@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Array para armazenar as informações das camadas ativadas
         var camadasAtivadas = [];
-    
-        // Verificar todas as camadas e capturar informações das camadas ativadas
+
+        // Verificar todas as camadas do primeiro grupo e capturar informações das camadas ativadas
         for (var layerName in camadas) {
             if (map.hasLayer(camadas[layerName])) {
                 // Recuperar as coordenadas do clique e o nome da camada
@@ -63,6 +63,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 camadasAtivadas.push(layerName);
             }
         }
+
+        // Verificar a camada de solicitações e capturar informações se estiver ativada
+        for (var layerName in camadasInstitucionais) {
+            if (map.hasLayer(camadasInstitucionais[layerName])) {
+                // Recuperar as coordenadas do clique e o nome da camada
+                var coordenadas = e.latlng;
+                // Adicionar o nome da camada de solicitações ao array
+                camadasAtivadas.push(layerName);
+            }
+    }
     
         console.log('Coordenadas do clique:', coordenadas);
         console.log('Camada habilitada:', camadasAtivadas);

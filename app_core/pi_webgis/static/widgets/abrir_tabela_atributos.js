@@ -31,6 +31,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 camadasAtivadas.push(layerName);
             }
         }
+
+        for (var layerName in camadasInstitucionais) {
+            if (map.hasLayer(camadasInstitucionais[layerName])) {
+                camadasAtivadas.push(layerName);
+            }
+        }
+
         if (camadasAtivadas.length === 0) {
             console.log('Nenhuma camada ativada.');
             window.alert("Habilite uma camada para ver a tabela de atributos");

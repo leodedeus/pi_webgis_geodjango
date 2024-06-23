@@ -89,15 +89,17 @@ var camadas = {
     'Sistema Ferroviário': ferrovias,
     'Hidrografia': rios,
     'Lago/Lagoas': lagos,
+    //'Solicitações': solicitacoes
+    }
+
+var camadasInstitucionais = {
     'Solicitações': solicitacoes
     }
 
-//var camadasInstitucionais = {
-//    'Solicitações': solicitacoes
-//    }
-
 //var controlLayers = L.control.layers(basemaps,camadas,camadasInstitucionais,{collapsed: false}).addTo(map);
 var controlLayers = L.control.layers(basemaps, camadas, { collapsed: false }).addTo(map);
+var controlLayersInstitucional = L.control.layers(null, camadasInstitucionais, {collapsed: false}).addTo(map);
+
 
 // Função para ajustar a ordem das camadas quando uma sobreposição é adicionada
 function ajustarOrdemCamadas() {

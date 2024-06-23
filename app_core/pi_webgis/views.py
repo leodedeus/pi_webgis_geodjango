@@ -363,6 +363,13 @@ def abrir_tabela_atributos(request):
                print(json_identify_hidrografia)
                return HttpResponse(json_identify_hidrografia, content_type="application/json")
            
+           elif nomeCamada == 'Solicitações':
+               print('camada consultada no banco: ', nomeCamada)
+               solicitacao = SolicitacaoPopulacao.objects.all()
+               json_identify_solicitacao = serialize("json", solicitacao, fields=["id", "tiposolicitacao", "nomesolicitante", "emailsolicitante","fonesolicitante"])
+               print(json_identify_solicitacao)
+               return HttpResponse(json_identify_solicitacao, content_type="application/json")
+           
            else:
                return JsonResponse({'error': 'Nome da camada não corresponde a nenhuma camada conhecida'})
 
