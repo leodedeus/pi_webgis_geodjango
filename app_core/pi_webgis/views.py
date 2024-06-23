@@ -2,7 +2,8 @@
 import json
 import requests
 from django.shortcuts import render, redirect
-from django.contrib import messages 
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.middleware.csrf import get_token
@@ -13,6 +14,7 @@ from django.contrib.gis.geos import Point
 #from django.contrib.gis.geos import GEOSGeometry
 from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas, Sistemaviario, Sistemaferroviario, Hidrografia, TipoSolicitacao, SolicitacaoPopulacao
 from pi_webgis.forms import SolicitacaoPopulacaoForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # Create your views here.
 def get_csrf_token(request):
@@ -431,6 +433,34 @@ def cadastra_solicitacao(request):
         form = SolicitacaoPopulacaoForm()
     
     return render(request, 'cadastra_solicitacao.html', {'cadastra_solicitacao': form})
+
+def register_view(request):
+    if request.method == "POST":
+        user_form = UserCreationForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('url_webgis')
+    else:
+        user_form = UserCreationForm()
+    return render (request, 'register.html', {'user_form': user_form})
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect ('url_webgis')
+        else:
+            login_form = AuthenticationForm()
+    else:
+        login_form = AuthenticationForm()
+    return render(request, 'login.html', {'login_form': login_form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('url_webgis')
 
 
 '''
