@@ -31,7 +31,7 @@ urlpatterns = [
     path('busca_endereco/', busca_endereco, name='url_busca_endereco'),
     path('identificar_feicao/', identificar_feicao, name='url_identificar_feicao'),
     path('abrir_tabela_atributos/', abrir_tabela_atributos, name='url_identificar_feicao'),
-    path('cadastra_solicitacao/', cadastra_solicitacao, name='cadastra_solicitacao'),
+    path('cadastra_solicitacao/', cadastra_solicitacao, name='url_cadastra_solicitacao'),
     #path('search_endereco/', search_endereco, name='search_endereco'),
     #path('lotes/', ViewLotesExistentes_geojson, name='url_lotes')
 ]

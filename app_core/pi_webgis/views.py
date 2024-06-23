@@ -1,7 +1,8 @@
 #import logging
 import json
 import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages 
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.middleware.csrf import get_token
@@ -10,7 +11,8 @@ from django.contrib.gis.geos import Point
 #from django.contrib.gis.db.models.functions import Transform
 #from django.contrib.gis.serializers import GeoJSONSerializer
 #from django.contrib.gis.geos import GEOSGeometry
-from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas, Sistemaviario, Sistemaferroviario, Hidrografia, TipoSolicitacao
+from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas, Sistemaviario, Sistemaferroviario, Hidrografia, TipoSolicitacao, SolicitacaoPopulacao
+from pi_webgis.forms import SolicitacaoPopulacaoForm
 
 # Create your views here.
 def get_csrf_token(request):
@@ -352,9 +354,57 @@ def abrir_tabela_atributos(request):
    else:
        return JsonResponse({'error': 'Método não permitido'})
 
+'''
 def cadastra_solicitacao(request):
-    tiposolicitacoes = TipoSolicitacao.objects.all()
-    return render(request, 'webgis.html', {'tiposolicitacoes': tiposolicitacoes})
+    #lat = request.GET.get('lat')
+    #lng = request.GET.get('lng')
+    #initial_data = {'lat': lat, 'lng': lng} if lat and lng else None
+    #form = SolicitacaoPopulacaoForm(initial=initial_data)
+    form = SolicitacaoPopulacaoForm()
+    #tiposolicitacoes = TipoSolicitacao.objects.all()
+    return render(request, 'cadastra_solicitacao.html', {'cadastra_solicitacao': form})
+    #dentro das chaves {} tem um dicionário, onde o primeirto item é a chave e o segundo é o valor
+    #a chave é usada para chamar o valor para ser mostrado em algum lugar.
+'''
+def cadastra_solicitacao(request):
+    if request.method == 'POST':
+        form = SolicitacaoPopulacaoForm(request.POST)
+        print("Dados recebidos no POST:", request.POST)
+        if form.is_valid():
+            # Salvando os dados do formulário
+            solicitacao = form.save(commit=False)
+            
+            # Obtendo as coordenadas do mapa
+            latitude = request.POST.get('lat')
+            longitude = request.POST.get('lng')
+
+            if latitude and longitude: #os dados recebido por request são string, então precisam ser convertidos para float
+                latitude = float(latitude)
+                longitude = float(longitude)
+
+                # Criar o ponto com o SRID WGS84
+                ponto_clicado = Point(longitude, latitude, srid=4326)
+
+                # Converter para o SRID do banco de dados (31983)
+                ponto_clicado.transform(31983)
+                print(ponto_clicado)
+
+                # Atribuir o ponto transformado ao campo geom
+                solicitacao.geom = ponto_clicado
+
+                # Salvando no banco de dados
+                solicitacao.save()
+
+                # Mensagem de sucesso
+                messages.success(request, 'Solicitação cadastrada com sucesso.')
+
+                return redirect('url_webgis')  # Redirecionar para a página inicial após o cadastro
+        else:
+            print("Formulário inválido:", form.errors)
+    else:
+        form = SolicitacaoPopulacaoForm()
+    
+    return render(request, 'cadastra_solicitacao.html', {'cadastra_solicitacao': form})
 
 
 '''

@@ -20,6 +20,17 @@
 </head>
 <body>
     
+    <div class="container mt-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    
     <header class="cabecalho_mapa">
         <div class="cabecalho__logo-container">
             <a href="{% url '' %}" class="cabecalho__link">
@@ -79,44 +90,18 @@
         </div>
     </div>
 
-    <!-- Model com formulário solicitação população-->
+    <!-- Modal -->
     <div class="modal fade" id="solicitacaoModal" tabindex="-1" role="dialog" aria-labelledby="solicitacaoModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="solicitacaoModalLabel">Solicitação de Serviço</h5>
+                    <h5 class="modal-title" id="solicitacaoModalLabel">Cadastro de Solicitação</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Formulário de solicitação vai aqui -->
-                    <form id="solicitacaoForm">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="tipoSolicitacao">Tipo de Solicitação</label>
-                            <select id="tipoSolicitacao" name="tipoSolicitacao" class="form-control">
-                                {% for tipo in tiposolicitacoes %}
-                                    <option value="{{ tipo.id }}">{{ tipo.nome }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="nomeSolicitante">Nome do Solicitante</label>
-                            <input type="text" class="form-control" id="nomeSolicitante" name="nomeSolicitante">
-                        </div>
-                        <div class="form-group">
-                            <label for="emailSolicitante">Email do Solicitante</label>
-                            <input type="email" class="form-control" id="emailSolicitante" name="emailSolicitante">
-                        </div>
-                        <div class="form-group">
-                            <label for="foneSolicitante">Telefone do Solicitante</label>
-                            <input type="text" class="form-control" id="foneSolicitante" name="foneSolicitante">
-                        </div>
-                        <input type="hidden" id="lat" name="lat">
-                        <input type="hidden" id="lng" name="lng">
-                        <button type="submit" class="btn btn-primary">Enviar Solicitação</button>
-                    </form>
+                    <!-- O conteúdo do formulário será carregado aqui -->
                 </div>
             </div>
         </div>
@@ -136,6 +121,7 @@
     <script src="{% static 'widgets/cadastrar_solicitacao.js' %}"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script-->
     {% bootstrap_javascript %}
     <!-- JavaScript do Bootstrap -->
     <!--script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script-->

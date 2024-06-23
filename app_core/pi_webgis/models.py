@@ -122,6 +122,9 @@ class SolicitacaoPopulacao(models.Model):
     emailsolicitante = models.CharField(max_length=100)
     fonesolicitante = models.CharField(max_length=11)
 
+    def __str__(self):
+        return f"Solicitação {self.id}"
+    
     class Meta:
         managed = False
         db_table = '"camadas"."feature_point_solicitacao_populacao"'
