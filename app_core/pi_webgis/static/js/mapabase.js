@@ -65,7 +65,7 @@ var lagos = L.tileLayer.wms('http://3.133.226.4:8080/geoserver/workspace_piwebgi
             //opacity: 1.0
         });//.addTo(map)
 
-var solicitacoes = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_container/wms',{
+var solicitacoes = L.tileLayer.wms('http://3.133.226.4:8080/geoserver/workspace_piwebgis_container/wms',{
             layers: 'workspace_piwebgis_container:feature_point_solicitacao_populacao',
             format: 'image/png',
             transparent: true,
