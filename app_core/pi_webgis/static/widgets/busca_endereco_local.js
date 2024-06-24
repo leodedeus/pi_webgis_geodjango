@@ -22,7 +22,7 @@ function buscarEndereco(endereco) {
                 map.setView([data.latitude, data.longitude]);
 
                 // Atualiza a referência para o novo marcador
-                marcadorEndereco = marcadorEndereco;
+                //marcadorEndereco = marcadorEndereco;
             } else {
                 console.error('Endereço não encontrado:', data.error);
             }

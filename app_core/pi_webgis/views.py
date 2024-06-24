@@ -97,9 +97,13 @@ def busca_endereco(request):
 
     # Construindo a URL para a API Nominatim com o endereço fornecido
     url = f"https://nominatim.openstreetmap.org/search?q={address}&format=json"
-    
+
+    headers = {
+	'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246',
+    }
+     
     # Fazendo uma requisição GET para a API Nominatim
-    response = requests.get(url)
+    response = requests.get(url, headers=headers)
     
     # Verificando se a resposta foi bem-sucedida
     if response.status_code == 200:
