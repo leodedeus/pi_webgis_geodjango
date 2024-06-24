@@ -1,7 +1,9 @@
 #import logging
 import json
 import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.middleware.csrf import get_token
@@ -10,7 +12,9 @@ from django.contrib.gis.geos import Point
 #from django.contrib.gis.db.models.functions import Transform
 #from django.contrib.gis.serializers import GeoJSONSerializer
 #from django.contrib.gis.geos import GEOSGeometry
-from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas, Sistemaviario, Sistemaferroviario, Hidrografia
+from pi_webgis.models import Escolaspublicas, Regiaoadministrativa, Loteexistente, Lagoslagoas, Sistemaviario, Sistemaferroviario, Hidrografia, TipoSolicitacao, SolicitacaoPopulacao
+from pi_webgis.forms import SolicitacaoPopulacaoForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # Create your views here.
 def get_csrf_token(request):
@@ -278,7 +282,26 @@ def identificar_feicao(request):
                    return JsonResponse({'error': 'Nenhuma hidrografia encontrada para as coordenadas fornecidas'})
            except Exception as e:
                return JsonResponse({'error': str(e)})
-          
+       
+       elif nomeCamada == 'Solicitações':
+           print('camada consultada no banco: ', nomeCamada)
+           ponto_buffer = ponto_clicado.buffer(10)#10 significa a distancia em unidades do sistema de coordenadas
+           print('buffer gerado')
+           # Realize a consulta espacial para encontrar a escola mais próximo ao ponto clicado
+           try:
+               #Loteexistente se refere a classe no arquivo models.py
+               solicitacoes = SolicitacaoPopulacao.objects.filter(geom__intersects=ponto_buffer).first()
+               print('resultado consulta no banco: ',solicitacoes)
+               # Verifique se encontrou uma escola
+               if solicitacoes:
+                   geojson_identify_solicitacao = serialize("geojson", [solicitacoes], geometry_field="geom", fields=["tiposolicitacao", "nomesolicitante", "emailsolicitante", "fonesolicitante"])
+                   print(geojson_identify_solicitacao)
+                   # Retorne um HttpResponse com o GeoJSON da feição
+                   return HttpResponse(geojson_identify_solicitacao, content_type="application/json")
+               else:
+                   return JsonResponse({'error': 'Nenhuma solicitacao encontrada para as coordenadas fornecidas'})
+           except Exception as e:
+               return JsonResponse({'error': str(e)})
    else:
        return JsonResponse({'error': 'Método não permitido'})
 
@@ -342,6 +365,13 @@ def abrir_tabela_atributos(request):
                print(json_identify_hidrografia)
                return HttpResponse(json_identify_hidrografia, content_type="application/json")
            
+           elif nomeCamada == 'Solicitações':
+               print('camada consultada no banco: ', nomeCamada)
+               solicitacao = SolicitacaoPopulacao.objects.all()
+               json_identify_solicitacao = serialize("json", solicitacao, fields=["id", "tiposolicitacao", "nomesolicitante", "emailsolicitante","fonesolicitante"])
+               print(json_identify_solicitacao)
+               return HttpResponse(json_identify_solicitacao, content_type="application/json")
+           
            else:
                return JsonResponse({'error': 'Nome da camada não corresponde a nenhuma camada conhecida'})
 
@@ -351,6 +381,87 @@ def abrir_tabela_atributos(request):
            return JsonResponse({'error': str(e)})
    else:
        return JsonResponse({'error': 'Método não permitido'})
+
+'''
+def cadastra_solicitacao(request):
+    #lat = request.GET.get('lat')
+    #lng = request.GET.get('lng')
+    #initial_data = {'lat': lat, 'lng': lng} if lat and lng else None
+    #form = SolicitacaoPopulacaoForm(initial=initial_data)
+    form = SolicitacaoPopulacaoForm()
+    #tiposolicitacoes = TipoSolicitacao.objects.all()
+    return render(request, 'cadastra_solicitacao.html', {'cadastra_solicitacao': form})
+    #dentro das chaves {} tem um dicionário, onde o primeirto item é a chave e o segundo é o valor
+    #a chave é usada para chamar o valor para ser mostrado em algum lugar.
+'''
+def cadastra_solicitacao(request):
+    if request.method == 'POST':
+        form = SolicitacaoPopulacaoForm(request.POST)
+        print("Dados recebidos no POST:", request.POST)
+        if form.is_valid():
+            # Salvando os dados do formulário
+            solicitacao = form.save(commit=False)
+            
+            # Obtendo as coordenadas do mapa
+            latitude = request.POST.get('lat')
+            longitude = request.POST.get('lng')
+
+            if latitude and longitude: #os dados recebido por request são string, então precisam ser convertidos para float
+                latitude = float(latitude)
+                longitude = float(longitude)
+
+                # Criar o ponto com o SRID WGS84
+                ponto_clicado = Point(longitude, latitude, srid=4326)
+
+                # Converter para o SRID do banco de dados (31983)
+                ponto_clicado.transform(31983)
+                print(ponto_clicado)
+
+                # Atribuir o ponto transformado ao campo geom
+                solicitacao.geom = ponto_clicado
+
+            # Salvando no banco de dados
+            solicitacao.save()
+
+            # Mensagem de sucesso
+            messages.success(request, 'Solicitação cadastrada com sucesso.')
+
+            return redirect('url_webgis')  # Redirecionar para a página inicial após o cadastro
+        else:
+            print("Formulário inválido:", form.errors)
+    else:
+        form = SolicitacaoPopulacaoForm()
+    
+    return render(request, 'cadastra_solicitacao.html', {'cadastra_solicitacao': form})
+
+def register_view(request):
+    if request.method == "POST":
+        user_form = UserCreationForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('url_webgis')
+    else:
+        user_form = UserCreationForm()
+    return render (request, 'register.html', {'user_form': user_form})
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect ('url_webgis')
+        else:
+            login_form = AuthenticationForm()
+    else:
+        login_form = AuthenticationForm()
+    return render(request, 'login.html', {'login_form': login_form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('url_webgis')
+
 
 '''
 def abrir_tabela_atributos(request):

@@ -19,7 +19,7 @@ from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from pi_webgis.views import home, webgis
 #from pi_webgis.views import get_csrf_token, ViewEscolaspublicas_geojson, ViewRegiaoAdministrativa_geojson, busca_endereco, identificar_feicao
-from pi_webgis.views import get_csrf_token, busca_endereco, identificar_feicao, abrir_tabela_atributos
+from pi_webgis.views import get_csrf_token, busca_endereco, identificar_feicao, abrir_tabela_atributos, cadastra_solicitacao, register_view, login_view, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +31,10 @@ urlpatterns = [
     path('busca_endereco/', busca_endereco, name='url_busca_endereco'),
     path('identificar_feicao/', identificar_feicao, name='url_identificar_feicao'),
     path('abrir_tabela_atributos/', abrir_tabela_atributos, name='url_identificar_feicao'),
+    path('cadastra_solicitacao/', cadastra_solicitacao, name='url_cadastra_solicitacao'),
+    path('register/', register_view, name='url_register'),
+    path('login/', login_view, name='url_login'),
+    path('logout/', logout_view, name='url_logout')
     #path('search_endereco/', search_endereco, name='search_endereco'),
     #path('lotes/', ViewLotesExistentes_geojson, name='url_lotes')
 ]

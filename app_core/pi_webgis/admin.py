@@ -2,7 +2,7 @@ from django.contrib import admin
 from leaflet.admin import LeafletGeoAdmin
 #from django.contrib.gis import admin
 #from django.contrib.gis.admin import OSMGeoAdmin
-from .models import Escolaspublicas, Loteexistente, Regiaoadministrativa, Hidrografia, Lagoslagoas, Sistemaviario, Sistemaferroviario
+from .models import Escolaspublicas, Loteexistente, Regiaoadministrativa, Hidrografia, Lagoslagoas, Sistemaviario, Sistemaferroviario, TipoSolicitacao, SolicitacaoPopulacao
 
 
 # Register your models here.
@@ -44,6 +44,15 @@ class SistemaferroviarioAdmin(LeafletGeoAdmin):
     list_display = ('osm_id', 'code','fclass', 'name')
     search_fields = ('osm_id', 'code','fclass', 'name')
 
+class TipoSolicitacaoAdmin(LeafletGeoAdmin):
+#class LoteexistenteAdmin(admin.GISModelAdmin):
+    list_display = ('numsolicitacao', 'tiposolicitacao')
+    search_fields = ('numsolicitacao', 'tiposolicitacao')
+
+class SolicitacaoPopulacaoAdmin(LeafletGeoAdmin):
+    list_display = ('tiposolicitacao', 'nomesolicitante', 'emailsolicitante', 'fonesolicitante')
+    seach_fields = ('tiposolicitacao', 'nomesolicitante', 'emailsolicitante', 'fonesolicitante') 
+
 admin.site.register(Loteexistente, LoteexistenteAdmin)
 admin.site.register(Escolaspublicas, EscolaspublicasAdmin)
 admin.site.register(Regiaoadministrativa, RegiaoadministrativaAdmin)
@@ -51,4 +60,7 @@ admin.site.register(Hidrografia, HidrografiaAdmin)
 admin.site.register(Lagoslagoas, LagoslagonasAdmin)
 admin.site.register(Sistemaviario, SistemaviarioAdmin)
 admin.site.register(Sistemaferroviario, SistemaferroviarioAdmin)
+admin.site.register(TipoSolicitacao, TipoSolicitacaoAdmin)
+admin.site.register(SolicitacaoPopulacao, SolicitacaoPopulacaoAdmin)
+
     

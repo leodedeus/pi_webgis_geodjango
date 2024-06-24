@@ -65,6 +65,13 @@ var lagos = L.tileLayer.wms('http://3.133.226.4:8080/geoserver/workspace_piwebgi
             //opacity: 1.0
         });//.addTo(map)
 
+var solicitacoes = L.tileLayer.wms('http://localhost:8080/geoserver/workspace_piwebgis_container/wms',{
+            layers: 'workspace_piwebgis_container:feature_point_solicitacao_populacao',
+            format: 'image/png',
+            transparent: true,
+            //opacity: 1.0
+        });//.addTo(map)
+
 //Criação de variaveis para controlar a visualização das camadas
 var basemaps = {
     'Mapa Básico': cartodb,
@@ -81,10 +88,33 @@ var camadas = {
     'Sistema Viário':vias,
     'Sistema Ferroviário': ferrovias,
     'Hidrografia': rios,
-    'Lago/Lagoas': lagos
+    'Lago/Lagoas': lagos,
+    //'Solicitações': solicitacoes
     }
 
-var controlLayers = L.control.layers(basemaps,camadas,{collapsed: false}).addTo(map);
+var camadasInstitucionais = {
+    'Solicitações': solicitacoes
+    }
+
+//var controlLayers = L.control.layers(basemaps, camadas, { collapsed: false }).addTo(map);
+var controlLayers
+var controlLayersInstitucional;
+
+// Acesse o atributo de data no JavaScript
+var isAuthenticated = document.getElementById('data-container').getAttribute('data-authenticated');
+
+// Converta para um booleano se necessário
+var usuarioAutenticado = (isAuthenticated === 'true');
+
+console.log('O usuário está autenticado?', usuarioAutenticado);
+
+if (usuarioAutenticado) {
+    controlLayers = L.control.layers(basemaps, camadas, { collapsed: false }).addTo(map);
+    controlLayersInstitucional = L.control.layers(null, camadasInstitucionais, { collapsed: false }).addTo(map);
+}
+else {
+    controlLayers = L.control.layers(basemaps, camadas, { collapsed: false }).addTo(map);
+}
 
 // Função para ajustar a ordem das camadas quando uma sobreposição é adicionada
 function ajustarOrdemCamadas() {

@@ -1,0 +1,47 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Solicitação</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ cadastra_solicitacao }}
+            <input type="hidden" id="lat" name="lat">
+            <input type="hidden" id="lng" name="lng">
+            <button type="submit" class="btn btn-primary">Enviar Solicitação</button>
+         </form>
+    </div>
+</body>
+</html>
+-->
+
+<form id="solicitacaoForm" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ cadastra_solicitacao.as_table }}
+    </table>
+    <input type="hidden" id="lat" name="lat">
+    <input type="hidden" id="lng" name="lng">
+    <button type="submit" class="btn btn-primary">Cadastrar Solicitação</button>
+</form>
+
+<script>
+    // Script para atualizar os campos hidden com as coordenadas ao enviar o formulário
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.querySelector('form');
+        form.addEventListener('submit', function() {
+            var latInput = document.getElementById('lat');
+            var lngInput = document.getElementById('lng');
+            
+            // Atualiza os campos com as coordenadas capturadas
+            latInput.value = latlng.lat;
+            lngInput.value = latlng.lng;
+        });
+    });
+</script>
