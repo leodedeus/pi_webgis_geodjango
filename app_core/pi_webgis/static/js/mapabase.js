@@ -96,10 +96,25 @@ var camadasInstitucionais = {
     'Solicitações': solicitacoes
     }
 
-//var controlLayers = L.control.layers(basemaps,camadas,camadasInstitucionais,{collapsed: false}).addTo(map);
-var controlLayers = L.control.layers(basemaps, camadas, { collapsed: false }).addTo(map);
-var controlLayersInstitucional = L.control.layers(null, camadasInstitucionais, {collapsed: false}).addTo(map);
+//var controlLayers = L.control.layers(basemaps, camadas, { collapsed: false }).addTo(map);
+var controlLayers
+var controlLayersInstitucional;
 
+// Acesse o atributo de data no JavaScript
+var isAuthenticated = document.getElementById('data-container').getAttribute('data-authenticated');
+
+// Converta para um booleano se necessário
+var usuarioAutenticado = (isAuthenticated === 'true');
+
+console.log('O usuário está autenticado?', usuarioAutenticado);
+
+if (usuarioAutenticado) {
+    controlLayers = L.control.layers(basemaps, camadas, { collapsed: false }).addTo(map);
+    controlLayersInstitucional = L.control.layers(null, camadasInstitucionais, { collapsed: false }).addTo(map);
+}
+else {
+    controlLayers = L.control.layers(basemaps, camadas, { collapsed: false }).addTo(map);
+}
 
 // Função para ajustar a ordem das camadas quando uma sobreposição é adicionada
 function ajustarOrdemCamadas() {

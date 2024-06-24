@@ -50,15 +50,28 @@
             <button id="btnMedida">
                 <img id="imgMedida" src="{% static 'assets/icones/medida.png' %}" alt="Medida">
             </button>
+            <!--
             <button id="btnLogin">
-                <!--a href="{% url 'admin:index' %}"-->
+                <a href="{% url 'admin:index' %}">
                 <a href="{% url 'url_login' %}">
                     <img id="imgLogin" src="{% static 'assets/icones/admin.png' %}" alt="Login">
                 </a>
             </button>
-        </div>                        
+            -->
+            {% if user.is_authenticated %}
+                <div>
+                    <a href="{% url 'url_logout' %}" class="btn btn-danger">X</a>
+                </div>
+            {% else %}
+                <button id="btnLogin">
+                    <a href="{% url 'url_login' %}">
+                        <img id="imgLogin" src="{% static 'assets/icones/admin.png' %}" alt="Login">
+                    </a>
+                </button>
+            {% endif %}
+        </div>                         
     </header>
-    
+    <div id="data-container" data-authenticated="{% if user.is_authenticated %}true{% else %}false{% endif %}"></div>
     <div id="map"></div>
     <!-- Modal da tabela de atributos-->
     <div class="modal fade" id="tabelaAtributosModal" tabindex="-1" aria-labelledby="tabelaAtributosModalLabel" aria-hidden="true">
